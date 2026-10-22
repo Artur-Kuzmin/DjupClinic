@@ -35,7 +35,8 @@
   --color-bg: var(--depth-0);
   --color-text: var(--ink);
   --color-text-muted: var(--ink-600);
-  --color-cool: var(--fjord-500);
+  --color-cool: var(--fjord-500);     /* labels and small cool text */
+  --color-mark: var(--fjord-500);     /* decorative marks: bullets, rules, pixel fills */
   --color-accent: var(--coral-500);
   --color-on-accent: var(--ink);
   --color-rule: var(--rule-light);
@@ -146,12 +147,22 @@
   --shadow-hard-pressed: 0 0 0 0 var(--color-border);
 }
 
-/* Dark tone: applied to deep sections (depth 3 and 4) */
-[data-tone="dark"] {
+/* Dark tones. "deep" is the fjord call-to-action band (depth 3), "dark"
+   is the ink footer (depth 4). */
+[data-tone="dark"],
+[data-tone="deep"] {
   --focus-inner: var(--bone-0);
   --color-text: var(--bone-0);
   --color-text-muted: var(--slate-200);
   --color-cool: var(--fjord-200);
+  --color-mark: var(--fjord-200);
   --color-rule: var(--rule-dark);
   --color-border: var(--bone-0);
+}
+
+/* On fjord-700, fjord pale is only 4.7:1. Small text uses bone (8.1:1);
+   fjord pale stays for large text and decorative marks. */
+[data-tone="deep"] {
+  --color-cool: var(--bone-0);
+  --color-text-muted: var(--bone-0);
 }

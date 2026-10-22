@@ -15,5 +15,5 @@
   flex: none;
   width: calc(var(--pixel) * 6);
   height: var(--pixel);
-  background: currentColor;
+  background: var(--color-mark);
 }

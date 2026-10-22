@@ -87,7 +87,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
       <Dither from="var(--depth-1)" to="var(--depth-3)" rows={12} />
 
-      <section className={styles.contact} data-tone="dark" aria-labelledby="contact-heading">
+      <section className={styles.contact} data-tone="deep" aria-labelledby="contact-heading">
         <div className={`container grid ${styles.contactGrid}`}>
           <div className={styles.contactHead}>
             <SectionLabel index={4}>{t.contact.label}</SectionLabel>

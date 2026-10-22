@@ -17,7 +17,7 @@ const MARK = [
   "##########",
 ] as const;
 
-const colors = { "#": "var(--color-text)", f: "var(--color-cool)" } as const;
+const colors = { "#": "var(--color-text)", f: "var(--color-mark)" } as const;
 
 export function PixelMark({ className, cell = 2 }: { className?: string; cell?: number }) {
   return <PixelArt rows={MARK} colors={colors} cell={cell} className={className} />;

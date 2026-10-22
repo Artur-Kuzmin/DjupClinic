@@ -54,12 +54,12 @@ const en = {
   },
 
   home: {
-    // Alternatives, in the order presented for review:
+    // Option C, chosen in review. Other options presented:
     // A: "We do the research others skip, for founders and for schools."
-    // C: "Fundraising and growth for early-stage startups. AI search audits for French schools."
+    // B: "We help startups raise funds and win customers, and French schools correct what AI says about them."
     // D: "Consulting for early-stage startups and French schools, built on research others skip."
     statement:
-      "We help startups raise funds and win customers, and French schools correct what AI says about them.",
+      "Fundraising and growth for early-stage startups. AI search audits for French schools.",
     illustrationAlt:
       "Pixel drawing: a sounding line and its lead weight dropping through deepening water.",
     split: {

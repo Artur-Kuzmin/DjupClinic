@@ -36,6 +36,10 @@ npm run lint
 - Replace the placeholder address in `src/config/site.ts`. Every "Email us", "Book a call" and snapshot request uses it.
 - Set `SITE_URL` to the production origin, for example `https://www.example.com`. Canonical and hreflang URLs are built from it. On Vercel the production domain is used automatically.
 
+## Upgrade notes
+
+- **The 404 page relies on an experimental Next.js feature.** `src/app/global-not-found.tsx` needs `experimental.globalNotFound` in `next.config.ts`. It is the only way to server-render a 404 while the root layout lives under `/[lang]`. Recheck it on every Next.js upgrade: the flag may be renamed, stabilised or removed. After upgrading, confirm that an unknown URL such as `/en/missing` returns status 404 with the bilingual page in the HTML.
+
 ## Structure
 
 ```

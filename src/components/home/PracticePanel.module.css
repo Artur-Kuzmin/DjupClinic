@@ -64,7 +64,7 @@
   flex: none;
   width: calc(var(--pixel) * 3);
   height: calc(var(--pixel) * 3);
-  background: var(--color-cool);
+  background: var(--color-mark);
 }
 
 .action {

@@ -12,7 +12,7 @@ const fr: Dictionary = {
     home: {
       title: "Djup Clinic · Conseil pour startups et écoles",
       description:
-        "Un cabinet de conseil, deux pôles. Startup Clinic aide les jeunes startups à lever des fonds et à trouver leurs clients. Audits Écoles vérifie ce que les IA disent des écoles post-bac aux futurs étudiants.",
+        "Un cabinet de conseil, deux pôles. Startup Clinic aide les jeunes startups à lever des fonds et à trouver leurs clients. L'audit de visibilité IA vérifie ce que les IA disent des écoles post-bac aux futurs étudiants.",
     },
     startups: {
       title: "Startup Clinic",
@@ -20,7 +20,7 @@ const fr: Dictionary = {
         "Préparation à la levée de fonds et acquisition clients pour les jeunes startups : pitch deck, études de marché, listes d'investisseurs, profil client idéal et prospection.",
     },
     schools: {
-      title: "Audits Écoles",
+      title: "Audit de visibilité IA",
       description:
         "Audits de visibilité IA pour les écoles post-bac. Nous mesurons ce que ChatGPT, Perplexity et Gemini disent de votre école, nous le vérifions et nous établissons le plan de correction.",
     },
@@ -46,7 +46,7 @@ const fr: Dictionary = {
 
   practices: {
     startups: "Startup Clinic",
-    schools: "Audits Écoles",
+    schools: "Audit de visibilité IA",
   },
 
   footer: {
@@ -56,12 +56,12 @@ const fr: Dictionary = {
   },
 
   home: {
-    // Variantes proposées :
+    // Variante C, retenue. Autres variantes proposées :
     // A : « Nous faisons le travail de fond que d'autres survolent, pour les startups comme pour les écoles. »
-    // C : « Levée de fonds et croissance pour les jeunes startups. Audits de visibilité IA pour les écoles. »
+    // B : « Nous aidons les startups à lever des fonds et à trouver leurs clients, et les écoles à corriger ce que l'IA dit d'elles. »
     // D : « Du conseil pour les jeunes startups et les écoles, fondé sur le travail de fond que d'autres survolent. »
     statement:
-      "Nous aidons les startups à lever des fonds et à trouver leurs clients, et les écoles à corriger ce que l'IA dit d'elles.",
+      "Levée de fonds et croissance pour les jeunes startups. Audits de visibilité IA pour les écoles.",
     illustrationAlt:
       "Dessin en pixels : une ligne de sonde et son plomb descendant dans une eau de plus en plus profonde.",
     split: {
