@@ -20,7 +20,22 @@ export const site = {
   email: "hello@djupclinic.com",
   /** Absolute origin used for canonical and hreflang URLs. Set SITE_URL in production. */
   url: resolveSiteUrl(),
+  /**
+   * Shows clearly marked empty slots where approved content is still missing
+   * (the ReBound Nordic testimonial and logo). Set to false to hide them.
+   */
+  showPlaceholderSlots: true,
 } as const;
+
+type Logo = { src: string; width: number; height: number };
+
+/** Client assets that need approval before they appear on the site. */
+export const caseStudies: { reboundNordic: { logo: Logo | null } } = {
+  reboundNordic: {
+    // Once approved: { src: "/clients/rebound-nordic.svg", width: 160, height: 40 }
+    logo: null,
+  },
+};
 
 /** Builds a mailto: link with an optional prefilled subject and body. */
 export function mailto(subject?: string, body?: string): string {

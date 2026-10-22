@@ -1,0 +1,41 @@
+.grid {
+  row-gap: var(--space-7);
+  align-items: end;
+}
+
+.head,
+.actions {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 64rem) {
+  .head {
+    grid-column: 1 / span 7;
+  }
+  .actions {
+    grid-column: 9 / span 4;
+  }
+}
+
+.heading {
+  margin-top: var(--space-5);
+  font-size: var(--text-h2);
+  max-width: 22ch;
+}
+
+.text {
+  margin-top: var(--space-5);
+  max-width: var(--measure-narrow);
+  font-size: var(--text-lead);
+  color: var(--color-text-muted);
+}
+
+.email {
+  margin-top: var(--space-5);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.email a {
+  color: var(--color-text);
+}

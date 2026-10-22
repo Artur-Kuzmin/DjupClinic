@@ -1,3 +1,7 @@
+export type TrackKey = "investors" | "customers";
+export type Testimonial = { quote: string; name: string; role: string };
+type ScopeItem = { title: string; track: TrackKey };
+
 /**
  * English copy. Every user-facing string on the site lives here or in fr.ts.
  * British spelling. Straight apostrophes are converted to typographic ones
@@ -108,6 +112,123 @@ const en = {
   startups: {
     hero: {
       title: "Fundraising and first customers for early-stage startups.",
+      lead: "Two focused tracks for early-stage founders: getting ready for investors, and finding your first customers. We do the research and build the material with you.",
+      cta: "Book a call",
+      illustrationAlt:
+        "Pixel drawing of a sea chart: depth contours off a coastline, and a course plotted across them.",
+    },
+    tracks: {
+      label: "Two tracks",
+      heading: "Investors or customers: start with whatever is blocking you.",
+      deliverablesLabel: "What we deliver",
+      items: [
+        {
+          key: "investors" as TrackKey,
+          name: "Investor readiness",
+          fit: "For founders preparing a pre-seed or seed round.",
+          summary: "We make sure your deck, your story and your research hold up in front of investors.",
+          deliverables: [
+            { title: "Pitch deck audit and rebuild", text: "A slide-by-slide review, then a rebuilt deck." },
+            {
+              title: "Investor narrative",
+              text: "One clear story from problem to ask, consistent across deck, emails and meetings.",
+            },
+            {
+              title: "Market and competitor research",
+              text: "Market size, segments and competitors, with sources you can cite.",
+            },
+            {
+              title: "Investor target list",
+              text: "Funds and angels that invest at your stage and in your sector, with the right person to contact.",
+            },
+          ],
+        },
+        {
+          key: "customers" as TrackKey,
+          name: "Client acquisition",
+          fit: "For founders whose sales still come from their own network.",
+          summary:
+            "We work out who buys, find those people by name, and give you the messages and the system to reach them.",
+          deliverables: [
+            {
+              title: "Ideal customer profile (ICP)",
+              text: "Who buys, who decides, and the problem that makes them act.",
+            },
+            {
+              title: "Qualified prospect lists",
+              text: "Companies that match the profile, with named decision makers.",
+            },
+            {
+              title: "Outreach sequences and templates",
+              text: "Multi-step sequences and message templates, written for each segment.",
+            },
+            {
+              title: "CRM sheet",
+              text: "A simple tracking sheet, set up so you can run the pipeline yourself.",
+            },
+          ],
+        },
+      ],
+    },
+    approach: {
+      label: "Approach",
+      heading: "The same four steps, whichever track you choose.",
+      steps: [
+        {
+          title: "Diagnose",
+          text: "A first call and a review of what you already have: deck, data, pipeline, past outreach. We agree the scope in writing before any work starts.",
+        },
+        {
+          title: "Research",
+          text: "Market, competitors, investors or buyers, depending on the track. Every finding comes with its source.",
+        },
+        {
+          title: "Build",
+          text: "We write and design the material with you, in short review rounds.",
+        },
+        {
+          title: "Hand over",
+          text: "A walkthrough of every deliverable, so your team can use and update it without us.",
+        },
+      ],
+    },
+    caseStudy: {
+      label: "Case study",
+      tag: "Founding pilot client",
+      name: "ReBound Nordic",
+      intro:
+        "ReBound Nordic helps companies recover the VAT they pay on business expenses abroad. As our founding pilot client, they worked with us across both tracks.",
+      scopeLabel: "Scope",
+      scope: [
+        { title: "Pitch deck audit and rebuild", track: "investors" },
+        { title: "Market and competitor research", track: "investors" },
+        { title: "Investor strategy", track: "investors" },
+        { title: "Ideal customer profile (ICP)", track: "customers" },
+        { title: "Outreach strategy and templates", track: "customers" },
+      ] as ScopeItem[],
+      approachLabel: "Approach",
+      approach: [
+        "We started with the deck: a slide-by-slide audit, then a rebuild around one clear investor narrative. The market and competitor research fed both the deck and the investor strategy.",
+        "On the customer side, we defined the ideal customer profile with the team, then wrote the outreach strategy and message templates for each segment.",
+      ],
+      // Fill in once ReBound Nordic approves a quote. Until then the page shows a marked slot.
+      testimonial: null as Testimonial | null,
+      logoAlt: "ReBound Nordic logo",
+      slots: {
+        testimonialLabel: "Testimonial slot",
+        testimonialText: "Reserved for a quote from ReBound Nordic, added once they approve it.",
+        logoLabel: "Logo slot",
+        logoText: "ReBound Nordic logo",
+      },
+    },
+    cta: {
+      label: "Next step",
+      heading: "Tell us where the company is, and what's blocking the next step.",
+      text: "Send a few lines about your company and your next milestone. We'll reply with times for a call.",
+      button: "Book a call",
+      emailPrefix: "Or write directly to",
+      emailSubject: "Startup Clinic: booking a call",
+      emailBody: "Company:\nStage:\nNext milestone:\n",
     },
   },
 

@@ -84,12 +84,6 @@
 
 /* ---- Principles ------------------------------------------------------- */
 
-.principles {
-  --color-bg: var(--depth-1);
-  background: var(--color-bg);
-  padding-block: var(--section-pad);
-}
-
 .principlesGrid {
   row-gap: var(--space-8);
 }
@@ -135,7 +129,7 @@
   grid-row: 1 / span 2;
   font-family: var(--font-pixel);
   font-size: var(--text-label);
-  line-height: 2.2;
+  line-height: calc(var(--text-h3) * var(--leading-heading));
   letter-spacing: var(--tracking-label);
   color: var(--color-cool);
 }
@@ -148,49 +142,4 @@
   margin-top: var(--space-3);
   max-width: var(--measure);
   color: var(--color-text-muted);
-}
-
-/* ---- Contact band ----------------------------------------------------- */
-
-.contact {
-  --color-bg: var(--depth-3);
-  background: var(--color-bg);
-  color: var(--color-text);
-  padding-block: var(--section-pad);
-}
-
-.contactGrid {
-  row-gap: var(--space-7);
-  align-items: end;
-}
-
-.contactHead,
-.contactActions {
-  grid-column: 1 / -1;
-}
-
-@media (min-width: 64rem) {
-  .contactHead {
-    grid-column: 1 / span 7;
-  }
-  .contactActions {
-    grid-column: 9 / span 4;
-  }
-}
-
-.contactText {
-  margin-top: var(--space-5);
-  max-width: var(--measure-narrow);
-  font-size: var(--text-lead);
-  color: var(--color-text-muted);
-}
-
-.contactEmail {
-  margin-top: var(--space-5);
-  font-size: var(--text-small);
-  color: var(--color-text-muted);
-}
-
-.contactEmail a {
-  color: var(--color-text);
 }

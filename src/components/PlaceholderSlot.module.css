@@ -1,0 +1,41 @@
+/* Dashed border drawn with gradients: 4px dashes, 4px gaps, 2px thick */
+.slot {
+  --dash: var(--color-mark);
+  --dash-length: calc(var(--pixel) * 4);
+  padding: var(--space-5);
+  background:
+    linear-gradient(90deg, var(--dash) 50%, transparent 0) 0 0 / var(--dash-length) var(--pixel) repeat-x,
+    linear-gradient(90deg, var(--dash) 50%, transparent 0) 0 100% / var(--dash-length) var(--pixel) repeat-x,
+    linear-gradient(180deg, var(--dash) 50%, transparent 0) 0 0 / var(--pixel) var(--dash-length) repeat-y,
+    linear-gradient(180deg, var(--dash) 50%, transparent 0) 100% 0 / var(--pixel) var(--dash-length) repeat-y;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: 10rem;
+}
+
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 13rem;
+}
+
+.label {
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-cool);
+}
+
+.text {
+  max-width: var(--measure-narrow);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}

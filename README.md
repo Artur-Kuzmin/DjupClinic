@@ -35,6 +35,7 @@ npm run lint
 
 - Replace the placeholder address in `src/config/site.ts`. Every "Email us", "Book a call" and snapshot request uses it.
 - Set `SITE_URL` to the production origin, for example `https://www.example.com`. Canonical and hreflang URLs are built from it. On Vercel the production domain is used automatically.
+- The ReBound Nordic case study shows marked slots for a testimonial and a logo. Once the client approves them, add the quote to `startups.caseStudy.testimonial` in both dictionaries and the logo to `caseStudies` in `src/config/site.ts`. To launch without them, set `showPlaceholderSlots` to `false`; the slots then disappear.
 
 ## Upgrade notes
 

@@ -1,0 +1,79 @@
+.grid {
+  row-gap: var(--space-8);
+}
+
+.head {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 64rem) {
+  .head {
+    grid-column: 1 / span 7;
+  }
+}
+
+.heading {
+  margin-top: var(--space-5);
+  font-size: var(--text-h2);
+  max-width: 22ch;
+}
+
+.list {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  margin: 0;
+  padding: 0;
+}
+
+.step {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  row-gap: var(--space-2);
+  padding-block: var(--space-6);
+  border-top: var(--border-hair);
+}
+
+.step:last-child {
+  border-bottom: var(--border-hair);
+}
+
+/* Sits on the title's first line */
+.number {
+  grid-column: 1 / span 2;
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  line-height: calc(var(--text-h3) * var(--leading-heading));
+  letter-spacing: var(--tracking-label);
+  color: var(--color-cool);
+}
+
+.title {
+  grid-column: 3 / -1;
+  font-size: var(--text-h3);
+}
+
+.text {
+  grid-column: 3 / -1;
+  max-width: var(--measure);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 48rem) {
+  .number {
+    grid-column: 1 / span 1;
+  }
+  .title {
+    grid-column: 2 / span 4;
+  }
+  .text {
+    grid-column: 7 / span 6;
+  }
+}
+
+@media (min-width: 64rem) {
+  .text {
+    grid-column: 7 / span 5;
+  }
+}

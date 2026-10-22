@@ -110,6 +110,127 @@ const fr: Dictionary = {
   startups: {
     hero: {
       title: "Levée de fonds et premiers clients pour les jeunes startups.",
+      lead: "Deux volets ciblés pour les fondateurs en phase de démarrage : se préparer aux investisseurs, et trouver ses premiers clients. Nous menons les recherches et construisons les livrables avec vous.",
+      cta: "Réserver un appel",
+      illustrationAlt:
+        "Dessin en pixels d'une carte marine : des isobathes au large d'une côte, et une route tracée qui les traverse.",
+    },
+    tracks: {
+      label: "Deux volets",
+      heading: "Investisseurs ou clients : commencez par ce qui vous bloque.",
+      deliverablesLabel: "Livrables",
+      items: [
+        {
+          key: "investors",
+          name: "Préparation à la levée",
+          fit: "Pour les fondateurs qui préparent un tour de pré-amorçage ou d'amorçage.",
+          summary:
+            "Nous faisons en sorte que votre deck, votre récit et vos recherches tiennent face aux investisseurs.",
+          deliverables: [
+            {
+              title: "Audit et refonte du pitch deck",
+              text: "Une revue slide par slide, puis un deck entièrement retravaillé.",
+            },
+            {
+              title: "Récit investisseur",
+              text: "Un fil conducteur clair, du problème au montant recherché, cohérent dans le deck, les e-mails et les rendez-vous.",
+            },
+            {
+              title: "Étude de marché et de la concurrence",
+              text: "Taille de marché, segments et concurrents, avec des sources que vous pouvez citer.",
+            },
+            {
+              title: "Liste d'investisseurs cibles",
+              text: "Les fonds et business angels qui investissent à votre stade et dans votre secteur, avec le bon interlocuteur à contacter.",
+            },
+          ],
+        },
+        {
+          key: "customers",
+          name: "Acquisition clients",
+          fit: "Pour les fondateurs dont les ventes viennent encore de leur propre réseau.",
+          summary:
+            "Nous identifions qui achète, nous trouvons ces personnes nommément, et nous vous donnons les messages et l'outil pour les contacter.",
+          deliverables: [
+            {
+              title: "Profil client idéal (ICP)",
+              text: "Qui achète, qui décide, et le problème qui les pousse à agir.",
+            },
+            {
+              title: "Listes de prospects qualifiés",
+              text: "Des entreprises qui correspondent au profil, avec les décideurs identifiés nommément.",
+            },
+            {
+              title: "Séquences de prospection et modèles",
+              text: "Des séquences en plusieurs étapes et des modèles de messages, rédigés pour chaque segment.",
+            },
+            {
+              title: "Fichier CRM",
+              text: "Un tableau de suivi simple, prêt à l'emploi, pour piloter votre pipeline vous-même.",
+            },
+          ],
+        },
+      ],
+    },
+    approach: {
+      label: "Méthode",
+      heading: "Les mêmes quatre étapes, quel que soit le volet choisi.",
+      steps: [
+        {
+          title: "Diagnostic",
+          text: "Un premier appel et une revue de l'existant : deck, données, pipeline, prospection passée. Le périmètre est validé par écrit avant tout démarrage.",
+        },
+        {
+          title: "Recherche",
+          text: "Marché, concurrents, investisseurs ou acheteurs, selon le volet. Chaque information est sourcée.",
+        },
+        {
+          title: "Construction",
+          text: "Nous rédigeons et concevons les livrables avec vous, par courtes boucles de relecture.",
+        },
+        {
+          title: "Passation",
+          text: "Une présentation de chaque livrable, pour que votre équipe puisse l'utiliser et le faire évoluer sans nous.",
+        },
+      ],
+    },
+    caseStudy: {
+      label: "Étude de cas",
+      tag: "Premier client pilote",
+      name: "ReBound Nordic",
+      intro:
+        "ReBound Nordic aide les entreprises à récupérer la TVA payée sur leurs frais professionnels à l'étranger. Premier client pilote du cabinet, la startup nous a confié des missions sur les deux volets.",
+      scopeLabel: "Périmètre",
+      scope: [
+        { title: "Audit et refonte du pitch deck", track: "investors" },
+        { title: "Étude de marché et de la concurrence", track: "investors" },
+        { title: "Stratégie investisseurs", track: "investors" },
+        { title: "Profil client idéal (ICP)", track: "customers" },
+        { title: "Stratégie de prospection et modèles de messages", track: "customers" },
+      ],
+      approachLabel: "Démarche",
+      approach: [
+        "Nous avons commencé par le deck : un audit slide par slide, puis une refonte autour d'un récit investisseur clair. L'étude de marché et de la concurrence a nourri à la fois le deck et la stratégie investisseurs.",
+        "Côté clients, nous avons défini le profil client idéal avec l'équipe, puis rédigé la stratégie de prospection et des modèles de messages pour chaque segment.",
+      ],
+      // À compléter une fois la citation validée par ReBound Nordic.
+      testimonial: null,
+      logoAlt: "Logo de ReBound Nordic",
+      slots: {
+        testimonialLabel: "Emplacement témoignage",
+        testimonialText: "Réservé à une citation de ReBound Nordic, ajoutée après sa validation.",
+        logoLabel: "Emplacement logo",
+        logoText: "Logo de ReBound Nordic",
+      },
+    },
+    cta: {
+      label: "Prochaine étape",
+      heading: "Dites-nous où en est votre entreprise, et ce qui bloque la prochaine étape.",
+      text: "Quelques lignes sur votre entreprise et votre prochain jalon suffisent. Nous vous répondrons avec des créneaux pour un appel.",
+      button: "Réserver un appel",
+      emailPrefix: "Ou écrivez-nous directement à",
+      emailSubject: "Startup Clinic : demande d'appel",
+      emailBody: "Entreprise :\nStade :\nProchain jalon :\n",
     },
   },
 

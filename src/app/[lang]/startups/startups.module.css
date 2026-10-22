@@ -1,0 +1,43 @@
+/* The hero above already gives the breathing room */
+.tracks {
+  padding-top: 0;
+}
+
+.tracksGrid {
+  row-gap: var(--space-8);
+}
+
+.tracksHead,
+.trackFirst,
+.trackSecond {
+  grid-column: 1 / -1;
+}
+
+.heading {
+  margin-top: var(--space-5);
+  font-size: var(--text-h2);
+  max-width: 20ch;
+}
+
+@media (min-width: 48rem) {
+  .trackFirst {
+    grid-column: 1 / span 6;
+  }
+  .trackSecond {
+    grid-column: 7 / span 6;
+  }
+}
+
+/* Desktop: two offset columns, the second stepped down */
+@media (min-width: 64rem) {
+  .tracksHead {
+    grid-column: 1 / span 7;
+  }
+  .trackFirst {
+    grid-column: 1 / span 5;
+  }
+  .trackSecond {
+    grid-column: 7 / span 5;
+    margin-top: var(--space-10);
+  }
+}

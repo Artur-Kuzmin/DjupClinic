@@ -1,0 +1,61 @@
+.hero {
+  padding-block: var(--space-7) var(--space-8);
+}
+
+@media (min-width: 48rem) {
+  .hero {
+    padding-block: var(--space-9);
+  }
+}
+
+.grid {
+  row-gap: var(--space-6);
+  align-items: end;
+}
+
+.head,
+.body {
+  grid-column: 1 / -1;
+}
+
+.title {
+  margin-top: var(--space-5);
+  font-size: var(--text-h1);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
+  max-width: 20ch;
+}
+
+.lead {
+  max-width: var(--measure-lead);
+  font-size: var(--text-lead);
+  line-height: 1.45;
+}
+
+.action {
+  margin-top: var(--space-6);
+}
+
+.illustration {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .head {
+    grid-column: 1 / span 11;
+  }
+  .body {
+    grid-column: 1 / span 7;
+  }
+  .illustration {
+    display: block;
+    grid-column: 9 / span 4;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 64rem) {
+  .body {
+    grid-column: 1 / span 6;
+  }
+}

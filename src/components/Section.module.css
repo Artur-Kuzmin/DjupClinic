@@ -1,0 +1,28 @@
+.section {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.padded {
+  padding-block: var(--section-pad);
+}
+
+.depth0 {
+  --color-bg: var(--depth-0);
+}
+
+.depth1 {
+  --color-bg: var(--depth-1);
+}
+
+.depth2 {
+  --color-bg: var(--depth-2);
+}
+
+.depth3 {
+  --color-bg: var(--depth-3);
+}
+
+.depth4 {
+  --color-bg: var(--depth-4);
+}

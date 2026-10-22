@@ -79,6 +79,7 @@
 
   --measure: 62ch; /* max line length for running text */
   --measure-narrow: 36ch;
+  --measure-lead: 44ch;
 
   /* ------------------------------------------------------------------------
      Spacing: 4px base, mostly 8px steps

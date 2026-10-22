@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ButtonLink } from "@/components/ButtonLink";
+import { CtaBand } from "@/components/CtaBand";
 import { Dither } from "@/components/Dither";
 import { PracticePanel } from "@/components/home/PracticePanel";
 import { SoundingLine } from "@/components/illustrations/SoundingLine";
+import { Section } from "@/components/Section";
 import { SectionLabel } from "@/components/SectionLabel";
-import { mailto, site } from "@/config/site";
+import { mailto } from "@/config/site";
 import { isLocale, pathFor } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { pageMetadata } from "@/i18n/metadata";
@@ -63,7 +64,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
       <Dither from="var(--depth-0)" to="var(--depth-1)" />
 
-      <section className={styles.principles} aria-labelledby="principles-heading">
+      <Section depth={1} labelledBy="principles-heading">
         <div className={`container grid ${styles.principlesGrid}`}>
           <div className={styles.principlesHead}>
             <SectionLabel index={3}>{t.principles.label}</SectionLabel>
@@ -83,30 +84,21 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             ))}
           </ol>
         </div>
-      </section>
+      </Section>
 
       <Dither from="var(--depth-1)" to="var(--depth-3)" rows={12} />
 
-      <section className={styles.contact} data-tone="deep" aria-labelledby="contact-heading">
-        <div className={`container grid ${styles.contactGrid}`}>
-          <div className={styles.contactHead}>
-            <SectionLabel index={4}>{t.contact.label}</SectionLabel>
-            <h2 id="contact-heading" className={styles.sectionTitle}>
-              {t.contact.heading}
-            </h2>
-            <p className={styles.contactText}>{t.contact.text}</p>
-          </div>
-          <div className={styles.contactActions}>
-            <ButtonLink href={mailto(t.contact.emailSubject)} icon="mail" hint={dict.a11y.opensEmail}>
-              {t.contact.cta}
-            </ButtonLink>
-            <p className={styles.contactEmail}>
-              {t.contact.emailPrefix}{" "}
-              <a href={mailto(t.contact.emailSubject)}>{site.email}</a>
-            </p>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        index={4}
+        label={t.contact.label}
+        heading={t.contact.heading}
+        headingId="contact-heading"
+        text={t.contact.text}
+        button={t.contact.cta}
+        href={mailto(t.contact.emailSubject)}
+        hint={dict.a11y.opensEmail}
+        emailPrefix={t.contact.emailPrefix}
+      />
 
       <Dither from="var(--depth-3)" to="var(--depth-4)" />
     </>
