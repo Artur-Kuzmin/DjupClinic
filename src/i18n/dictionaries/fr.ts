@@ -237,6 +237,83 @@ const fr: Dictionary = {
   schools: {
     hero: {
       title: "Vos futurs étudiants interrogent l'IA avant de visiter votre site.",
+      lead: "Nous mesurons ce que ChatGPT, Perplexity et Gemini disent de votre école aux futurs étudiants, nous le confrontons à vos informations officielles et nous vous remettons un plan pour corriger ce qui est faux.",
+      cta: "Demander votre diagnostic gratuit",
+      illustrationAlt: "Dessin en pixels d'une réponse d'IA : une ligne barrée, et sa correction soulignée.",
+    },
+    problem: {
+      label: "Le constat",
+      heading: "Les réponses sont souvent datées, voire fausses.",
+      text: "Les IA assemblent leurs réponses à partir de ce qu'elles trouvent : anciennes brochures, classements passés, forums, pages d'autres écoles. Un futur étudiant qui compare des programmes vérifie rarement la source, et retient ce qu'il a lu.",
+      listLabel: "Ce que nous vérifions",
+      items: [
+        { title: "Programmes", text: "Des programmes fermés, renommés ou fusionnés, toujours présentés comme ouverts." },
+        { title: "Niveau de diplôme", text: "Un Bac+3 présenté comme un Bac+5, ou l'inverse." },
+        {
+          title: "Reconnaissance des diplômes",
+          text: "Grade de licence ou de master, niveau RNCP, visa : revendiqués à tort, oubliés ou attribués au mauvais programme.",
+        },
+        {
+          title: "Voies d'admission",
+          text: "Parcoursup au lieu de votre concours, ou l'inverse, avec les dates d'une année passée.",
+        },
+        { title: "Frais de scolarité", text: "Les montants d'une année passée, ou ceux d'une autre école." },
+        {
+          title: "Classements",
+          text: "Des classements anciens, des positions tirées d'une autre liste, voire des classements qui n'existent pas.",
+        },
+        { title: "Campus", text: "Des campus fermés ou déménagés, et des villes où vous n'avez jamais enseigné." },
+        { title: "Homonymes", text: "Votre école confondue avec une autre au nom proche." },
+      ],
+    },
+    method: {
+      label: "Notre intervention",
+      heading: "Mesurer, vérifier, corriger.",
+      steps: [
+        {
+          title: "Mesure",
+          text: "Nous posons à ChatGPT, Perplexity et Gemini les questions que vos futurs étudiants posent réellement sur votre école, et nous archivons chaque réponse.",
+        },
+        {
+          title: "Vérification",
+          text: "Nous confrontons chaque affirmation à vos sources officielles et la classons : exacte, obsolète, fausse ou manquante.",
+        },
+        {
+          title: "Plan de correction",
+          text: "Vous recevez une liste de corrections hiérarchisée : ce qu'il faut modifier sur votre site, et les sources publiques sur lesquelles s'appuient les IA.",
+        },
+      ],
+    },
+    process: {
+      label: "Déroulement",
+      heading: "Commencez par un diagnostic flash gratuit. Allez plus loin seulement si c'est utile.",
+      receiveLabel: "Vous recevez",
+      steps: [
+        {
+          title: "Diagnostic flash gratuit",
+          text: "Un échantillon de vraies questions, les réponses de chaque IA et les erreurs les plus visibles.",
+          receive: "Une synthèse d'une page, gratuite et sans engagement.",
+        },
+        {
+          title: "Audit pilote",
+          text: "Un audit complet sur une partie de votre offre, par exemple un programme ou un campus.",
+          receive: "Un rapport vérifié et les premières corrections.",
+        },
+        {
+          title: "Audit complet",
+          text: "Tous vos programmes et campus, sur les trois IA.",
+          receive: "Un rapport complet et un plan de correction hiérarchisé pour vos équipes.",
+        },
+      ],
+    },
+    cta: {
+      label: "Diagnostic flash",
+      heading: "Découvrez ce que l'IA dit de votre école à vos futurs étudiants.",
+      text: "Envoyez-nous le nom et le site de votre école. Nous vous répondrons avec un diagnostic flash d'une page, gratuit.",
+      button: "Demander votre diagnostic gratuit",
+      emailPrefix: "Ou écrivez-nous directement à",
+      emailSubject: "Demande de diagnostic flash gratuit",
+      emailBody: "École :\nSite web :\nNom et fonction :\n",
     },
   },
 

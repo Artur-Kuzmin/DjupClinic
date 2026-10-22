@@ -235,6 +235,80 @@ const en = {
   schools: {
     hero: {
       title: "Students ask AI about your school before they visit your website.",
+      lead: "We measure what ChatGPT, Perplexity and Gemini tell students about your school, check it against your official information, and give you a plan to correct what's wrong.",
+      cta: "Request your free snapshot",
+      illustrationAlt: "Pixel drawing of an AI answer: one line struck through, and its correction underlined.",
+    },
+    problem: {
+      label: "The problem",
+      heading: "The answers are often out of date, or simply wrong.",
+      text: "AI tools assemble answers from whatever they find: old brochures, past rankings, forum threads, other schools' pages. A student comparing programmes rarely checks the source, and remembers what they read.",
+      listLabel: "What we check",
+      items: [
+        { title: "Programmes", text: "Closed, renamed or merged programmes still described as open." },
+        { title: "Degree level", text: "A Bac+3 presented as a Bac+5, or the other way round." },
+        {
+          title: "Accreditation",
+          text: "Grade de licence or grade de master, RNCP level, visa: claimed wrongly, left out, or attached to the wrong programme.",
+        },
+        {
+          title: "Admission routes",
+          text: "Parcoursup instead of your own concours, or the reverse, with deadlines from a past year.",
+        },
+        { title: "Tuition fees", text: "Fees from a past year, or another school's." },
+        { title: "Rankings", text: "Old rankings, positions from another list, or rankings that do not exist." },
+        { title: "Campuses", text: "Closed or moved campuses, and cities you have never taught in." },
+        { title: "Name mix-ups", text: "Your school confused with another that has a similar name." },
+      ],
+    },
+    method: {
+      label: "What we do",
+      heading: "Measure, check, correct.",
+      steps: [
+        {
+          title: "Measure",
+          text: "We ask ChatGPT, Perplexity and Gemini the questions prospective students actually ask about your school, and record every answer.",
+        },
+        {
+          title: "Fact-check",
+          text: "We check each claim against your official sources and mark it correct, outdated, wrong or missing.",
+        },
+        {
+          title: "Correction plan",
+          text: "You get a prioritised list of fixes: what to change on your own site, and which public sources the AI tools draw on.",
+        },
+      ],
+    },
+    process: {
+      label: "How it works",
+      heading: "Start with a free snapshot. Go further only if it's useful.",
+      receiveLabel: "You receive",
+      steps: [
+        {
+          title: "Free snapshot",
+          text: "A sample of real questions, what each AI answered, and the most visible errors.",
+          receive: "A one-page summary, free and with no commitment.",
+        },
+        {
+          title: "Pilot audit",
+          text: "A complete audit of one part of your offer, such as a programme or a campus.",
+          receive: "A fact-checked report and the first corrections.",
+        },
+        {
+          title: "Full audit",
+          text: "Every programme and campus, across all three AI tools.",
+          receive: "A full report and a prioritised correction plan for your team.",
+        },
+      ],
+    },
+    cta: {
+      label: "Free snapshot",
+      heading: "See what AI tells students about your school.",
+      text: "Send us your school's name and website. We'll reply with a one-page snapshot, free of charge.",
+      button: "Request your free snapshot",
+      emailPrefix: "Or write directly to",
+      emailSubject: "Free snapshot request",
+      emailBody: "School:\nWebsite:\nName and role:\n",
     },
   },
 

@@ -1,0 +1,23 @@
+.art {
+  display: block;
+  width: calc(44 * var(--illustration-cell));
+  height: calc(32 * var(--illustration-cell));
+}
+
+@media (min-width: 64rem) {
+  .art {
+    --illustration-cell: 4px;
+  }
+}
+
+.mark {
+  fill: var(--color-mark);
+}
+
+.ink {
+  fill: var(--color-text);
+}
+
+.accent {
+  fill: var(--color-accent);
+}
