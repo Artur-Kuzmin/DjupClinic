@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/config/site";
+import { ogContentType, ogImagePath, ogSize } from "@/lib/og-config";
 import {
   defaultLocale,
   locales,
@@ -8,6 +9,7 @@ import {
   type Locale,
   type RouteKey,
 } from "./config";
+import { getDictionary } from "./get-dictionary";
 
 type PageMeta = { title: string; description: string };
 
@@ -22,6 +24,7 @@ export function pageMetadata(
   meta: PageMeta,
   options: { absoluteTitle?: boolean } = {},
 ): Metadata {
+  const imageAlt = getDictionary(locale).meta.ogImageAlt;
   const languages: Record<string, string> = {};
   for (const l of locales) languages[l] = pathFor(l, key);
   languages["x-default"] = pathFor(defaultLocale, key);
@@ -41,6 +44,13 @@ export function pageMetadata(
       description: meta.description,
       locale: openGraphLocales[locale],
       alternateLocale: locales.filter((l) => l !== locale).map((l) => openGraphLocales[l]),
+      images: [{ url: ogImagePath(locale, "opengraph"), ...ogSize, alt: imageAlt, type: ogContentType }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.description,
+      images: [{ url: ogImagePath(locale, "twitter"), ...ogSize, alt: imageAlt }],
     },
   };
 }

@@ -59,6 +59,9 @@ export async function SiteFooter({ locale, dict }: SiteFooterProps) {
         <p>
           <span className={styles.copyright}>©</span> {year} {site.name}
         </p>
+        <Link href={pathFor(locale, "legal")} className={styles.bottomLink}>
+          {dict.footer.legal}
+        </Link>
       </div>
     </footer>
   );

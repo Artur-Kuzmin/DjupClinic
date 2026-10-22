@@ -85,6 +85,11 @@
 }
 
 .bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
   margin-top: var(--space-8);
   padding-top: var(--space-5);
   border-top: var(--border-hair);
@@ -93,6 +98,18 @@
   font-size: var(--text-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+}
+
+.bottomLink {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.bottomLink:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: var(--pixel);
+  text-underline-offset: 0.3em;
 }
 
 /* Departure Mono's © is hard to read at 11px; set it in the grotesk */

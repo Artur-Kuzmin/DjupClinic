@@ -30,6 +30,12 @@ const en = {
       title: "Page not found",
       description: "This page does not exist.",
     },
+    legal: {
+      title: "Legal notice",
+      description: "Publisher, contact, hosting and privacy information for the Djup Clinic website.",
+    },
+    ogImageAlt:
+      "Djup Clinic: fundraising and growth for early-stage startups, AI search audits for French schools.",
   },
 
   a11y: {
@@ -55,6 +61,7 @@ const en = {
     tagline: "Consulting for early-stage startups and French post-bac schools.",
     practicesHeading: "Practices",
     contactHeading: "Contact",
+    legal: "Legal notice",
   },
 
   home: {
@@ -291,12 +298,12 @@ const en = {
         },
         {
           title: "Pilot audit",
-          text: "A complete audit of one programme or one campus.",
+          text: "Our full audit method on founding terms, open to the first three schools only. It covers one programme or one campus.",
           receive: "A fact-checked report and the first corrections.",
         },
         {
           title: "Full audit",
-          text: "Every programme and campus, across the main AI assistants students use.",
+          text: "Every programme and campus, with an ongoing correction plan.",
           receive: "A full report and a prioritised correction plan for your team.",
         },
       ],
@@ -309,6 +316,34 @@ const en = {
       emailPrefix: "Or write directly to",
       emailSubject: "Free snapshot request",
       emailBody: "School:\nWebsite:\nName and role:\n",
+    },
+  },
+
+  legal: {
+    title: "Legal notice",
+    intro: "Who publishes this website, who hosts it, and how we handle the details you send us.",
+    publisher: {
+      heading: "Publisher",
+      text: "Artur Kuzmin and German Minigulov (Djup).",
+    },
+    contact: {
+      heading: "Contact",
+      text: "By email:",
+    },
+    host: {
+      heading: "Hosting",
+      name: "Vercel Inc.",
+      address: ["440 N Barranca Avenue #4133", "Covina, CA 91723", "United States"],
+      website: "vercel.com",
+    },
+    privacy: {
+      heading: "Privacy",
+      paragraphs: [
+        "We only use the details you send us by email, such as your name, your organisation and your message, to reply to you.",
+        "We do not share or sell them. This website sets no cookies and uses no analytics or tracking tools.",
+        "Our host, Vercel, processes technical data such as IP addresses to deliver the website and keep it secure.",
+        "You can ask us at any time to see or delete the emails you have sent us, by writing to the addresses above. You can also complain to the CNIL, the French data protection authority.",
+      ],
     },
   },
 

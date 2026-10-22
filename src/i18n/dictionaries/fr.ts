@@ -28,6 +28,12 @@ const fr: Dictionary = {
       title: "Page introuvable",
       description: "Cette page n'existe pas.",
     },
+    legal: {
+      title: "Mentions légales",
+      description: "Éditeur, contact, hébergement et données personnelles du site Djup Clinic.",
+    },
+    ogImageAlt:
+      "Djup Clinic : levée de fonds et croissance pour les jeunes startups, audits de visibilité IA pour les écoles.",
   },
 
   a11y: {
@@ -53,6 +59,7 @@ const fr: Dictionary = {
     tagline: "Conseil pour les jeunes startups et les écoles post-bac.",
     practicesHeading: "Pôles",
     contactHeading: "Contact",
+    legal: "Mentions légales",
   },
 
   home: {
@@ -296,12 +303,12 @@ const fr: Dictionary = {
         },
         {
           title: "Audit pilote",
-          text: "Un audit complet d'un programme ou d'un campus.",
+          text: "Notre méthode d'audit complète, à des conditions de lancement, réservée aux trois premières écoles. Elle couvre un programme ou un campus.",
           receive: "Un rapport vérifié et les premières corrections.",
         },
         {
           title: "Audit complet",
-          text: "Tous vos programmes et campus, sur les principaux assistants IA utilisés par les étudiants.",
+          text: "Tous vos programmes et campus, avec un plan de correction suivi dans la durée.",
           receive: "Un rapport complet et un plan de correction hiérarchisé pour vos équipes.",
         },
       ],
@@ -314,6 +321,34 @@ const fr: Dictionary = {
       emailPrefix: "Ou écrivez-nous directement à",
       emailSubject: "Demande de diagnostic flash gratuit",
       emailBody: "École :\nSite web :\nNom et fonction :\n",
+    },
+  },
+
+  legal: {
+    title: "Mentions légales",
+    intro: "Qui édite ce site, qui l'héberge, et comment nous traitons les informations que vous nous envoyez.",
+    publisher: {
+      heading: "Éditeur",
+      text: "Artur Kuzmin et German Minigulov (Djup).",
+    },
+    contact: {
+      heading: "Contact",
+      text: "Par e-mail :",
+    },
+    host: {
+      heading: "Hébergement",
+      name: "Vercel Inc.",
+      address: ["440 N Barranca Avenue #4133", "Covina, CA 91723", "États-Unis"],
+      website: "vercel.com",
+    },
+    privacy: {
+      heading: "Données personnelles",
+      paragraphs: [
+        "Nous utilisons uniquement les informations que vous nous envoyez par e-mail, comme votre nom, votre organisation et votre message, pour vous répondre.",
+        "Nous ne les partageons pas et ne les vendons pas. Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience ou de suivi.",
+        "Notre hébergeur, Vercel, traite des données techniques comme les adresses IP pour diffuser le site et en assurer la sécurité.",
+        "Vous pouvez à tout moment nous demander d'accéder aux e-mails que vous nous avez envoyés ou de les supprimer, en écrivant aux adresses ci-dessus. Vous pouvez aussi adresser une réclamation à la CNIL.",
+      ],
     },
   },
 

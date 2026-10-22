@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { locales, routeKeys, type Locale, type RouteKey } from "@/i18n/config";
+import { locales, type Locale, type RouteKey } from "@/i18n/config";
 import styles from "./SiteHeader.module.css";
 
 type HeaderNavProps = {
@@ -30,7 +30,8 @@ export function HeaderNav({
   localeCodes,
 }: HeaderNavProps) {
   const pathname = usePathname();
-  const current = routeKeys.find((key) => paths[key][locale] === pathname);
+  // Routes come from the server-built table, so client and server always agree
+  const current = (Object.keys(paths) as RouteKey[]).find((key) => paths[key][locale] === pathname);
 
   const practiceLinks: { key: RouteKey; label: string }[] = [
     { key: "startups", label: labels.startups },
