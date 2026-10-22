@@ -24,7 +24,7 @@ const en = {
     schools: {
       title: "School Audits",
       description:
-        "AI search audits for French post-bac schools. We measure what ChatGPT, Perplexity and Gemini tell students about your school, fact-check it and plan the corrections.",
+        "AI search audits for French post-bac schools. We check what the main AI assistants students use, from ChatGPT to Google AI Overviews, say about your school, and plan the corrections.",
     },
     notFound: {
       title: "Page not found",
@@ -76,7 +76,7 @@ const en = {
       },
       schools: {
         title: "Schools",
-        text: "AI search audits for French post-bac schools. We check what ChatGPT, Perplexity and Gemini tell prospective students, then plan the corrections.",
+        text: "AI search audits for French post-bac schools. We check what the main AI assistants tell prospective students, then plan the corrections.",
         items: ["Free snapshot", "Pilot audit", "Full audit"],
         cta: "View School Audits",
       },
@@ -235,7 +235,7 @@ const en = {
   schools: {
     hero: {
       title: "Students ask AI about your school before they visit your website.",
-      lead: "We measure what ChatGPT, Perplexity and Gemini tell students about your school, check it against your official information, and give you a plan to correct what's wrong.",
+      lead: "We measure what the main AI assistants students use (ChatGPT, Perplexity, Gemini, Google AI Overviews and others) say about your school. Then we check it against your official information and give you a plan to correct what's wrong.",
       cta: "Request your free snapshot",
       illustrationAlt: "Pixel drawing of an AI answer: one line struck through, and its correction underlined.",
     },
@@ -267,7 +267,7 @@ const en = {
       steps: [
         {
           title: "Measure",
-          text: "We ask ChatGPT, Perplexity and Gemini the questions prospective students actually ask about your school, and record every answer.",
+          text: "We put the questions prospective students actually ask about your school to the main AI assistants, and record every answer.",
         },
         {
           title: "Fact-check",
@@ -291,12 +291,12 @@ const en = {
         },
         {
           title: "Pilot audit",
-          text: "A complete audit of one part of your offer, such as a programme or a campus.",
+          text: "A complete audit of one programme or one campus.",
           receive: "A fact-checked report and the first corrections.",
         },
         {
           title: "Full audit",
-          text: "Every programme and campus, across all three AI tools.",
+          text: "Every programme and campus, across the main AI assistants students use.",
           receive: "A full report and a prioritised correction plan for your team.",
         },
       ],

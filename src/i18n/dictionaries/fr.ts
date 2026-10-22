@@ -22,7 +22,7 @@ const fr: Dictionary = {
     schools: {
       title: "Audit de visibilité IA",
       description:
-        "Audits de visibilité IA pour les écoles post-bac. Nous mesurons ce que ChatGPT, Perplexity et Gemini disent de votre école, nous le vérifions et nous établissons le plan de correction.",
+        "Audits de visibilité IA pour les écoles post-bac. Nous vérifions ce que les principaux assistants IA utilisés par les étudiants, de ChatGPT aux AI Overviews de Google, disent de votre école, et nous établissons le plan de correction.",
     },
     notFound: {
       title: "Page introuvable",
@@ -74,7 +74,7 @@ const fr: Dictionary = {
       },
       schools: {
         title: "Écoles",
-        text: "Audits de visibilité IA pour les écoles post-bac. Nous vérifions ce que ChatGPT, Perplexity et Gemini répondent à vos futurs étudiants, puis nous établissons le plan de correction.",
+        text: "Audits de visibilité IA pour les écoles post-bac. Nous vérifions ce que les principaux assistants IA répondent à vos futurs étudiants, puis nous établissons le plan de correction.",
         items: ["Diagnostic flash gratuit", "Audit pilote", "Audit complet"],
         cta: "Voir l'offre Écoles",
       },
@@ -237,7 +237,7 @@ const fr: Dictionary = {
   schools: {
     hero: {
       title: "Vos futurs étudiants interrogent l'IA avant de visiter votre site.",
-      lead: "Nous mesurons ce que ChatGPT, Perplexity et Gemini disent de votre école aux futurs étudiants, nous le confrontons à vos informations officielles et nous vous remettons un plan pour corriger ce qui est faux.",
+      lead: "Nous mesurons ce que disent de votre école les principaux assistants IA utilisés par les étudiants (ChatGPT, Perplexity, Gemini, les AI Overviews de Google et d'autres). Puis nous le confrontons à vos informations officielles et vous remettons un plan pour corriger ce qui est faux.",
       cta: "Demander votre diagnostic gratuit",
       illustrationAlt: "Dessin en pixels d'une réponse d'IA : une ligne barrée, et sa correction soulignée.",
     },
@@ -272,7 +272,7 @@ const fr: Dictionary = {
       steps: [
         {
           title: "Mesure",
-          text: "Nous posons à ChatGPT, Perplexity et Gemini les questions que vos futurs étudiants posent réellement sur votre école, et nous archivons chaque réponse.",
+          text: "Nous posons aux principaux assistants IA les questions que vos futurs étudiants posent réellement sur votre école, et nous archivons chaque réponse.",
         },
         {
           title: "Vérification",
@@ -296,12 +296,12 @@ const fr: Dictionary = {
         },
         {
           title: "Audit pilote",
-          text: "Un audit complet sur une partie de votre offre, par exemple un programme ou un campus.",
+          text: "Un audit complet d'un programme ou d'un campus.",
           receive: "Un rapport vérifié et les premières corrections.",
         },
         {
           title: "Audit complet",
-          text: "Tous vos programmes et campus, sur les trois IA.",
+          text: "Tous vos programmes et campus, sur les principaux assistants IA utilisés par les étudiants.",
           receive: "Un rapport complet et un plan de correction hiérarchisé pour vos équipes.",
         },
       ],
