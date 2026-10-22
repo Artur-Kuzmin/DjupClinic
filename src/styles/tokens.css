@@ -1,0 +1,149 @@
+/* ==========================================================================
+   Djup Clinic: design tokens
+   The single source for colour, type, spacing, grid, borders, shadows and
+   motion. Components read semantic tokens only (--color-*, --text-*, …).
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------------
+     Colour: raw palette
+     Contrast (WCAG 2.x) noted against the lightest ground, bone-0.
+     ------------------------------------------------------------------------ */
+  --bone-0: #f2eee6;     /* page ground, depth 0 */
+  --bone-1: #e9e4da;     /* depth 1 */
+  --mist: #dedbd3;       /* depth 2, cooler */
+  --fjord-900: #1b2f3c;  /* depth 3, dark sections */
+  --ink: #15181b;        /* text, depth 4 (footer). 15.4:1 */
+  --ink-600: #4e555b;    /* secondary text. 6.5:1 (5.5:1 on mist) */
+  --fjord-500: #35607a;  /* cold mid-tone. 5.8:1 (4.9:1 on mist) */
+  --fjord-200: #9dbbcd;  /* fjord on dark grounds. 6.9:1 on fjord-900 */
+  --slate-200: #b4c0c7;  /* secondary text on dark. 7.5:1 on fjord-900 */
+  --coral-500: #ee6a4c;  /* CTAs + key highlights only. Ink on coral 5.8:1.
+                            Never coral text on bone (2.7:1). */
+  --rule-light: #cfc9be; /* hairlines on light grounds (decorative) */
+  --rule-dark: #34454f;  /* hairlines on dark grounds (decorative) */
+
+  /* Depth: sections darken as the page goes down */
+  --depth-0: var(--bone-0);
+  --depth-1: var(--bone-1);
+  --depth-2: var(--mist);
+  --depth-3: var(--fjord-900);
+  --depth-4: var(--ink);
+
+  /* Semantic colour (light tone, the default) */
+  --color-bg: var(--depth-0);
+  --color-text: var(--ink);
+  --color-text-muted: var(--ink-600);
+  --color-cool: var(--fjord-500);
+  --color-accent: var(--coral-500);
+  --color-on-accent: var(--ink);
+  --color-rule: var(--rule-light);
+  --color-border: var(--ink);
+  --color-selection: var(--coral-500);
+
+  /* ------------------------------------------------------------------------
+     Type
+     Geist (grotesk) for headings and body. Departure Mono only for labels,
+     section numbers, nav and buttons, at 11px multiples (its pixel grid).
+     Fluid sizes interpolate between 375px and 1440px viewports.
+     ------------------------------------------------------------------------ */
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: var(--font-departure), ui-monospace, "SFMono-Regular", monospace;
+
+  --text-display: clamp(2.75rem, 1.782rem + 4.131vw, 5.5rem);    /* 44 → 88 */
+  --text-h1: clamp(2.5rem, 1.796rem + 3.005vw, 4.5rem);          /* 40 → 72 */
+  --text-h2: clamp(1.875rem, 1.479rem + 1.69vw, 3rem);           /* 30 → 48 */
+  --text-h3: clamp(1.3125rem, 1.2025rem + 0.469vw, 1.625rem);    /* 21 → 26 */
+  --text-lead: clamp(1.1875rem, 1.121rem + 0.282vw, 1.375rem);   /* 19 → 22 */
+  --text-body: 1.0625rem;                                         /* 17 */
+  --text-small: 0.9375rem;                                        /* 15 */
+  --text-label: 0.6875rem;                                        /* 11, pixel 1x */
+  --text-label-lg: 1.375rem;                                      /* 22, pixel 2x */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+
+  --leading-display: 1.02;
+  --leading-heading: 1.1;
+  --leading-body: 1.55;
+  --leading-label: 1.45;
+
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+  --tracking-body: 0;
+  --tracking-label: 0.06em;
+
+  --measure: 62ch; /* max line length for running text */
+
+  /* ------------------------------------------------------------------------
+     Spacing: 4px base, mostly 8px steps
+     ------------------------------------------------------------------------ */
+  --space-1: 0.25rem;  /* 4 */
+  --space-2: 0.5rem;   /* 8 */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
+  --space-10: 8rem;    /* 128 */
+  --space-11: 12rem;   /* 192 */
+
+  --section-pad: clamp(4rem, 2.592rem + 6.009vw, 8rem); /* 64 → 128 */
+
+  /* ------------------------------------------------------------------------
+     Grid: strict 12 columns at every width; spans change per breakpoint
+     ------------------------------------------------------------------------ */
+  --grid-columns: 12;
+  --grid-gutter: clamp(1rem, 0.78rem + 0.94vw, 1.5rem);   /* 16 → 24 */
+  --page-margin: clamp(1rem, -0.056rem + 4.507vw, 4rem);  /* 16 → 64 */
+  --page-max: 90rem;                                      /* 1440 */
+
+  /* ------------------------------------------------------------------------
+     Pixel layer
+     ------------------------------------------------------------------------ */
+  --pixel: 2px;            /* one art pixel in icons (16-cell icon = 32px) */
+  --dither-cell: 4px;      /* one cell in ordered-dither section transitions */
+
+  /* ------------------------------------------------------------------------
+     Borders and shadows: square, hard, no blur.
+     Colour-dependent composites live in the tone-aware block below.
+     ------------------------------------------------------------------------ */
+  --radius: 0;
+  --shadow-offset: 4px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
+  /* ------------------------------------------------------------------------
+     Motion: calm. steps() for pixel details, smooth for layout.
+     Zeroed under prefers-reduced-motion in globals.css.
+     ------------------------------------------------------------------------ */
+  --duration-fast: 120ms;
+  --duration-base: 240ms;
+  --duration-slow: 480ms;
+  --ease-layout: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-pixel: steps(4, end);
+}
+
+/* Tone-aware composites. Re-declared on every tone scope so they pick up
+   the local colour tokens instead of the values resolved at :root. */
+:root,
+[data-tone] {
+  --border-hair: 1px solid var(--color-rule);
+  --border-pixel: 2px solid var(--color-border);
+  --shadow-hard: var(--shadow-offset) var(--shadow-offset) 0 0 var(--color-border);
+  --shadow-hard-pressed: 0 0 0 0 var(--color-border);
+  /* Focus: pixel-style double ring, text-colour inner + accent outer */
+  --focus-inner: var(--color-text);
+  --focus-outer: var(--color-accent);
+}
+
+/* Dark tone: applied to deep sections (depth 3 and 4) */
+[data-tone="dark"] {
+  --color-text: var(--bone-0);
+  --color-text-muted: var(--slate-200);
+  --color-cool: var(--fjord-200);
+  --color-rule: var(--rule-dark);
+  --color-border: var(--bone-0);
+}
