@@ -1,0 +1,31 @@
+.hero {
+  padding-block: var(--space-9) var(--section-pad);
+}
+
+.title {
+  grid-column: 1 / -1;
+  margin-top: var(--space-5);
+  font-size: var(--text-h1);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
+}
+
+@media (min-width: 64rem) {
+  .title {
+    grid-column: 1 / span 10;
+  }
+}
+
+.head {
+  grid-column: 1 / -1;
+}
+
+.text {
+  margin-top: var(--space-5);
+  font-size: var(--text-lead);
+  color: var(--color-text-muted);
+}
+
+.action {
+  margin-top: var(--space-7);
+}

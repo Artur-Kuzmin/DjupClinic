@@ -1,0 +1,19 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-cool);
+}
+
+/* A 2px pixel rule in place of a typed dash, so it sits on the pixel grid */
+.dash {
+  flex: none;
+  width: calc(var(--pixel) * 6);
+  height: var(--pixel);
+  background: currentColor;
+}

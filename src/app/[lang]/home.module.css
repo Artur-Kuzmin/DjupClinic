@@ -1,0 +1,196 @@
+/* ---- Hero: one statement, the sounding line beside it ----------------- */
+
+.hero {
+  padding-block: var(--space-6) var(--space-7);
+}
+
+@media (min-width: 48rem) {
+  .hero {
+    padding-block: var(--space-9) var(--space-8);
+  }
+}
+
+.heroGrid {
+  align-items: end;
+}
+
+.statement {
+  grid-column: 1 / -1;
+  font-size: var(--text-h2);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.illustration {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .statement {
+    grid-column: 1 / span 9;
+  }
+  .illustration {
+    display: block;
+    grid-column: 10 / span 3;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 64rem) {
+  .statement {
+    grid-column: 1 / span 8;
+  }
+}
+
+/* ---- Split: two doors, 7 and 5 columns -------------------------------- */
+
+.split {
+  padding-bottom: var(--space-8);
+}
+
+@media (min-width: 48rem) {
+  .split {
+    padding-bottom: var(--space-9);
+  }
+}
+
+.splitGrid {
+  row-gap: var(--space-5);
+}
+
+.panelStartups,
+.panelSchools {
+  grid-column: 1 / -1;
+}
+
+/* Tablet: equal halves. Desktop: the asymmetric 7 / 5 split. */
+@media (min-width: 48rem) {
+  .panelStartups {
+    grid-column: 1 / span 6;
+  }
+  .panelSchools {
+    grid-column: 7 / span 6;
+  }
+}
+
+@media (min-width: 64rem) {
+  .panelStartups {
+    grid-column: 1 / span 7;
+  }
+  .panelSchools {
+    grid-column: 8 / span 5;
+  }
+}
+
+/* ---- Principles ------------------------------------------------------- */
+
+.principles {
+  --color-bg: var(--depth-1);
+  background: var(--color-bg);
+  padding-block: var(--section-pad);
+}
+
+.principlesGrid {
+  row-gap: var(--space-8);
+}
+
+.principlesHead {
+  grid-column: 1 / -1;
+}
+
+.sectionTitle {
+  margin-top: var(--space-5);
+  font-size: var(--text-h2);
+  max-width: 20ch;
+}
+
+.principlesList {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 64rem) {
+  .principlesHead {
+    grid-column: 1 / span 5;
+  }
+  .principlesList {
+    grid-column: 7 / span 6;
+  }
+}
+
+.principle {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  column-gap: var(--grid-gutter);
+  padding-block: var(--space-6);
+  border-top: var(--border-hair);
+}
+
+.principle:last-child {
+  border-bottom: var(--border-hair);
+}
+
+.principleIndex {
+  grid-row: 1 / span 2;
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  line-height: 2.2;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-cool);
+}
+
+.principleTitle {
+  font-size: var(--text-h3);
+}
+
+.principleText {
+  margin-top: var(--space-3);
+  max-width: var(--measure);
+  color: var(--color-text-muted);
+}
+
+/* ---- Contact band ----------------------------------------------------- */
+
+.contact {
+  --color-bg: var(--depth-3);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding-block: var(--section-pad);
+}
+
+.contactGrid {
+  row-gap: var(--space-7);
+  align-items: end;
+}
+
+.contactHead,
+.contactActions {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 64rem) {
+  .contactHead {
+    grid-column: 1 / span 7;
+  }
+  .contactActions {
+    grid-column: 9 / span 4;
+  }
+}
+
+.contactText {
+  margin-top: var(--space-5);
+  max-width: var(--measure-narrow);
+  font-size: var(--text-lead);
+  color: var(--color-text-muted);
+}
+
+.contactEmail {
+  margin-top: var(--space-5);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.contactEmail a {
+  color: var(--color-text);
+}

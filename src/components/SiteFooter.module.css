@@ -1,0 +1,106 @@
+.footer {
+  --color-bg: var(--depth-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding-block: var(--space-8) var(--space-6);
+  font-size: var(--text-small);
+}
+
+.top {
+  row-gap: var(--space-7);
+}
+
+.brand,
+.practices,
+.contact {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 48rem) {
+  .brand {
+    grid-column: 1 / span 6;
+  }
+  .practices {
+    grid-column: 7 / span 3;
+  }
+  .contact {
+    grid-column: 10 / span 3;
+  }
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.wordmark {
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.tagline {
+  margin-top: var(--space-4);
+  max-width: var(--measure-narrow);
+  color: var(--color-text-muted);
+}
+
+.heading {
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-cool);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.contact .link {
+  display: inline-block;
+  margin-top: var(--space-4);
+}
+
+.link {
+  color: var(--color-text);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size var(--duration-base) var(--ease-pixel);
+}
+
+.link:hover {
+  background-size: 100% 1px;
+}
+
+.contact {
+  scroll-margin-top: var(--space-8);
+}
+
+.bottom {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: var(--border-hair);
+  color: var(--color-text-muted);
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Departure Mono's © is hard to read at 11px; set it in the grotesk */
+.copyright {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  line-height: 1;
+}

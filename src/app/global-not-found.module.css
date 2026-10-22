@@ -1,0 +1,71 @@
+/* Short page: the hero grows so the footer always meets the bottom edge */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.hero {
+  flex: 1;
+  padding-block: var(--space-9) var(--section-pad);
+}
+
+.primary,
+.secondary {
+  grid-column: 1 / -1;
+}
+
+.secondary {
+  margin-top: var(--space-8);
+}
+
+@media (min-width: 64rem) {
+  .primary {
+    grid-column: 1 / span 6;
+  }
+  .secondary {
+    grid-column: 8 / span 5;
+    margin-top: 0;
+  }
+}
+
+.title {
+  margin-top: var(--space-5);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.text {
+  margin-top: var(--space-4);
+  max-width: var(--measure-narrow);
+  color: var(--color-text-muted);
+}
+
+.action {
+  margin-top: var(--space-6);
+}
+
+.footer {
+  --color-bg: var(--depth-4);
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  padding-block: var(--space-7);
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.copyright {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  line-height: 1;
+}

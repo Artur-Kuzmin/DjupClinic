@@ -1,0 +1,131 @@
+.header {
+  background: var(--color-bg);
+}
+
+/* Mobile: logo and language on one row, practices on the next */
+.inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "logo lang"
+    "nav nav";
+  align-items: center;
+  row-gap: var(--space-3);
+  padding-block: var(--space-4) var(--space-3);
+}
+
+@media (min-width: 48rem) {
+  .inner {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "logo nav lang";
+    column-gap: var(--space-7);
+    min-height: 5rem;
+    padding-block: var(--space-4);
+  }
+}
+
+.logo {
+  grid-area: logo;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  justify-self: start;
+  text-decoration: none;
+}
+
+.mark {
+  flex: none;
+}
+
+.wordmark {
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.nav {
+  grid-area: nav;
+  border-top: var(--border-hair);
+  padding-top: var(--space-2);
+}
+
+@media (min-width: 48rem) {
+  .nav {
+    justify-self: end;
+    border-top: 0;
+    padding-top: 0;
+  }
+}
+
+.navList,
+.langList {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navList {
+  gap: var(--space-6);
+}
+
+.navLink,
+.langLink,
+.langCurrent {
+  display: inline-block;
+  padding-block: var(--space-2);
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.navLink {
+  color: var(--color-text);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 var(--pixel);
+  transition: background-size var(--duration-base) var(--ease-pixel);
+}
+
+.navLink:hover,
+.navLink[aria-current="page"] {
+  background-size: 100% var(--pixel);
+}
+
+.lang {
+  grid-area: lang;
+  justify-self: end;
+}
+
+.langList {
+  gap: var(--space-2);
+}
+
+.langItem + .langItem::before {
+  content: "/" / "";
+  margin-right: var(--space-2);
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+}
+
+.langCurrent {
+  color: var(--color-text);
+}
+
+.langLink {
+  color: var(--color-text-muted);
+}
+
+.langLink:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: var(--pixel);
+  text-underline-offset: 0.3em;
+}

@@ -1,0 +1,14 @@
+.dither {
+  position: relative;
+  height: calc(var(--dither-rows) * var(--dither-cell));
+  background: var(--dither-from);
+}
+
+.dither::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--dither-to);
+  -webkit-mask: var(--dither-mask) 0 0 / calc(4 * var(--dither-cell)) 100% repeat-x;
+  mask: var(--dither-mask) 0 0 / calc(4 * var(--dither-cell)) 100% repeat-x;
+}

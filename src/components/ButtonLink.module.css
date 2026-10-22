@@ -1,0 +1,85 @@
+.button {
+  display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+  /* room for the hard shadow so it never collides with what follows */
+  margin-right: var(--shadow-offset);
+  margin-bottom: var(--shadow-offset);
+}
+
+.face {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 2.75rem; /* 44px touch target */
+  padding: 0 var(--space-5);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--ink);
+  font-family: var(--font-pixel);
+  font-size: var(--text-label);
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    transform var(--duration-fast) var(--ease-pixel),
+    box-shadow var(--duration-fast) var(--ease-pixel);
+}
+
+.primary .face {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.secondary .face {
+  background: var(--bone-0);
+  color: var(--ink);
+}
+
+.icon {
+  flex: none;
+  transition: transform var(--duration-base) var(--ease-pixel-short);
+}
+
+/* Hover: the arrow steps forward one cell pair */
+.button:hover .icon,
+:global(.card-hover):hover .icon {
+  transform: translateX(var(--pixel));
+}
+
+/* Press: the face drops into its shadow */
+.button:active .face {
+  transform: translate(var(--shadow-offset), var(--shadow-offset));
+  box-shadow: 0 0 0 0 var(--ink);
+}
+
+/* Focus: ink ring on the face, accent ring outside it on the anchor */
+.button:focus-visible {
+  box-shadow: none;
+  outline: var(--focus-width) solid var(--focus-outer);
+  outline-offset: calc(var(--focus-offset) * 3);
+}
+
+.button:focus-visible .face {
+  outline: var(--focus-width) solid var(--focus-inner);
+  outline-offset: var(--focus-offset);
+}
+
+/* Stretched variant: the hit area covers the whole card */
+.stretched::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* In a card, the card draws the focus ring instead of the button */
+.stretched:focus-visible,
+.stretched:focus-visible .face {
+  outline-color: transparent;
+}
+
+@media (max-width: 23.4375rem) {
+  .face {
+    white-space: normal;
+  }
+}

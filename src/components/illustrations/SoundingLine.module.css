@@ -1,0 +1,38 @@
+.art {
+  display: block;
+  width: calc(36 * var(--illustration-cell));
+  height: calc(52 * var(--illustration-cell));
+  overflow: hidden;
+}
+
+@media (min-width: 64rem) {
+  .art {
+    --illustration-cell: 4px;
+  }
+}
+
+.water {
+  fill: var(--color-cool);
+}
+
+.line {
+  fill: var(--color-text);
+}
+
+.highlight {
+  fill: var(--depth-0);
+}
+
+/* The line lowers into place once, one cell per step */
+.drop {
+  animation: drop 1.2s var(--ease-pixel-drop) 0.2s both;
+}
+
+@keyframes drop {
+  from {
+    transform: translateY(-12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
