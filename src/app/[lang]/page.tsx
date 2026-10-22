@@ -26,14 +26,14 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      <section className={styles.hero}>
+      <Section depth={0} padded={false} className={styles.hero}>
         <div className={`container grid ${styles.heroGrid}`}>
           <h1 className={styles.statement}>{t.statement}</h1>
           <SoundingLine label={t.illustrationAlt} className={styles.illustration} />
         </div>
-      </section>
+      </Section>
 
-      <section className={styles.split} aria-labelledby="split-heading">
+      <Section depth={0} padded={false} labelledBy="split-heading" className={styles.split}>
         <h2 id="split-heading" className="visually-hidden">
           {t.split.heading}
         </h2>
@@ -59,7 +59,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             className={styles.panelSchools}
           />
         </div>
-      </section>
+      </Section>
 
       <Dither from="var(--depth-0)" to="var(--depth-1)" />
 

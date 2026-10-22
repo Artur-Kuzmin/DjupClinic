@@ -20,12 +20,12 @@
 }
 
 .highlight {
-  fill: var(--depth-0);
+  fill: var(--color-bg);
 }
 
 /* The line lowers into place once, one cell per step */
 .drop {
-  animation: drop 1.2s var(--ease-pixel-drop) 0.2s both;
+  animation: drop var(--duration-draw) var(--ease-pixel-drop) 0.2s both;
 }
 
 @keyframes drop {

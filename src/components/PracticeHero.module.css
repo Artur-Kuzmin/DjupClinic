@@ -23,7 +23,7 @@
   font-size: var(--text-h1);
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-display);
-  max-width: 20ch;
+  max-width: var(--measure-title);
 }
 
 .lead {

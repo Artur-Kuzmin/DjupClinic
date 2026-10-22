@@ -80,6 +80,8 @@
   --measure: 62ch; /* max line length for running text */
   --measure-narrow: 36ch;
   --measure-lead: 44ch;
+  --measure-heading: 22ch; /* section headings (h2) on every page */
+  --measure-title: 20ch;   /* practice page headlines (h1) */
 
   /* ------------------------------------------------------------------------
      Spacing: 4px base, mostly 8px steps
@@ -136,6 +138,9 @@
   --ease-pixel: steps(4, end);
   --ease-pixel-short: steps(2, end);
   --ease-pixel-drop: steps(12, end);
+  --ease-pixel-mark: steps(8, end);
+  --duration-draw: 1200ms; /* one-off illustration reveals on load */
+  --duration-mark: 600ms;
 }
 
 /* Tone-aware composites. Re-declared on every tone scope so they pick up

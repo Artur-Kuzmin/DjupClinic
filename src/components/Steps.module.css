@@ -15,7 +15,7 @@
 .heading {
   margin-top: var(--space-5);
   font-size: var(--text-h2);
-  max-width: 22ch;
+  max-width: var(--measure-heading);
 }
 
 .list {

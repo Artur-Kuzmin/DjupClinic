@@ -25,7 +25,7 @@
 .heading {
   margin-top: var(--space-5);
   font-size: var(--text-h2);
-  max-width: 24ch;
+  max-width: var(--measure-heading);
 }
 
 .stairs {

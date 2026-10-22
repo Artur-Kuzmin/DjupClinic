@@ -1,4 +1,5 @@
 .art {
+  position: relative;
   display: block;
   width: calc(48 * var(--illustration-cell));
   height: calc(30 * var(--illustration-cell));
@@ -10,10 +11,36 @@
   }
 }
 
+/* Stacked SVG layers; the course layer is clipped on its own box */
+.layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .mark {
   fill: var(--color-mark);
 }
 
 .ink {
   fill: var(--color-text);
+}
+
+.halo {
+  fill: var(--color-bg);
+}
+
+/* The course plots itself across the chart once, a few cells per step */
+.reveal {
+  animation: plot var(--duration-draw) var(--ease-pixel-drop) 0.2s both;
+}
+
+@keyframes plot {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }

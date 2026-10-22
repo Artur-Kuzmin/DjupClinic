@@ -8,7 +8,7 @@ import styles from "./AnswerCard.module.css";
 const W = 44;
 const H = 32;
 
-type Cell = "ink" | "mark" | "accent";
+type Cell = "ink" | "mark" | "strike" | "accent";
 
 function draw(): Record<Cell, string> {
   const cells = new Map<string, Cell>();
@@ -42,13 +42,13 @@ function draw(): Record<Cell, string> {
     if (x % 2 === 0) set(x, 17, "mark");
     if (x % 2 === 1) set(x, 19, "mark");
   }
-  rect(2, 18, 35, 18, "ink");
+  rect(2, 18, 35, 18, "strike");
 
   // The correction, underlined
   rect(3, 22, 26, 23, "mark");
   rect(3, 25, 26, 25, "accent");
 
-  const paths: Record<Cell, string> = { ink: "", mark: "", accent: "" };
+  const paths: Record<Cell, string> = { ink: "", mark: "", strike: "", accent: "" };
   for (const [position, cell] of cells) {
     const [x, y] = position.split(",").map(Number);
     paths[cell] += `M${x} ${y}h1v1h-1z`;
@@ -58,19 +58,33 @@ function draw(): Record<Cell, string> {
 
 const PATHS = draw();
 
+/**
+ * The card, the strike and the correction are stacked SVGs, so the two
+ * marks can each be revealed with a clip on their own box.
+ */
 export function AnswerCard({ label, className }: { label: string; className?: string }) {
-  return (
+  const viewBox = `0 0 ${W} ${H}`;
+  const layer = (children: React.ReactNode, extra?: string) => (
     <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className={[styles.art, className].filter(Boolean).join(" ")}
+      viewBox={viewBox}
+      className={[styles.layer, extra].filter(Boolean).join(" ")}
       shapeRendering="crispEdges"
-      role="img"
-      aria-label={label}
+      aria-hidden="true"
       focusable="false"
     >
-      <path d={PATHS.mark} className={styles.mark} />
-      <path d={PATHS.ink} className={styles.ink} />
-      <path d={PATHS.accent} className={styles.accent} />
+      {children}
     </svg>
+  );
+  return (
+    <span role="img" aria-label={label} className={[styles.art, className].filter(Boolean).join(" ")}>
+      {layer(
+        <>
+          <path d={PATHS.mark} className={styles.mark} />
+          <path d={PATHS.ink} className={styles.ink} />
+        </>,
+      )}
+      {layer(<path d={PATHS.strike} className={styles.ink} />, styles.strike)}
+      {layer(<path d={PATHS.accent} className={styles.accent} />, styles.underline)}
+    </span>
   );
 }

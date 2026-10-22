@@ -6,7 +6,7 @@
 
 @media (min-width: 48rem) {
   .hero {
-    padding-block: var(--space-9) var(--space-8);
+    padding-block: var(--space-9);
   }
 }
 
@@ -45,13 +45,7 @@
 /* ---- Split: two doors, 7 and 5 columns -------------------------------- */
 
 .split {
-  padding-bottom: var(--space-8);
-}
-
-@media (min-width: 48rem) {
-  .split {
-    padding-bottom: var(--space-9);
-  }
+  padding-bottom: var(--section-pad);
 }
 
 .splitGrid {
@@ -95,7 +89,7 @@
 .sectionTitle {
   margin-top: var(--space-5);
   font-size: var(--text-h2);
-  max-width: 20ch;
+  max-width: var(--measure-heading);
 }
 
 .principlesList {

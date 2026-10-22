@@ -14,7 +14,7 @@ const en = {
     home: {
       title: "Djup Clinic · Consulting for startups and schools",
       description:
-        "A consulting studio with two practices. Startup Clinic helps early-stage startups raise and find customers. School Audits checks what AI tools tell students about French post-bac schools.",
+        "A consulting studio with two practices. Startup Clinic helps early-stage startups raise and find customers. School Audits checks what AI assistants tell students about French post-bac schools.",
     },
     startups: {
       title: "Startup Clinic",
@@ -242,7 +242,7 @@ const en = {
     problem: {
       label: "The problem",
       heading: "The answers are often out of date, or simply wrong.",
-      text: "AI tools assemble answers from whatever they find: old brochures, past rankings, forum threads, other schools' pages. A student comparing programmes rarely checks the source, and remembers what they read.",
+      text: "AI assistants assemble answers from whatever they find: old brochures, past rankings, forum threads, other schools' pages. A student comparing programmes rarely checks the source, and remembers what they read.",
       listLabel: "What we check",
       items: [
         { title: "Programmes", text: "Closed, renamed or merged programmes still described as open." },
@@ -275,7 +275,7 @@ const en = {
         },
         {
           title: "Correction plan",
-          text: "You get a prioritised list of fixes: what to change on your own site, and which public sources the AI tools draw on.",
+          text: "You get a prioritised list of fixes: what to change on your own site, and which public sources the assistants draw on.",
         },
       ],
     },
@@ -302,7 +302,7 @@ const en = {
       ],
     },
     cta: {
-      label: "Free snapshot",
+      label: "Next step",
       heading: "See what AI tells students about your school.",
       text: "Send us your school's name and website. We'll reply with a one-page snapshot, free of charge.",
       button: "Request your free snapshot",

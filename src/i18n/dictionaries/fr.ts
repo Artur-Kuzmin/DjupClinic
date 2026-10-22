@@ -12,7 +12,7 @@ const fr: Dictionary = {
     home: {
       title: "Djup Clinic · Conseil pour startups et écoles",
       description:
-        "Un cabinet de conseil, deux pôles. Startup Clinic aide les jeunes startups à lever des fonds et à trouver leurs clients. L'audit de visibilité IA vérifie ce que les IA disent des écoles post-bac aux futurs étudiants.",
+        "Un cabinet de conseil, deux pôles. Startup Clinic aide les jeunes startups à lever des fonds et à trouver leurs clients. L'audit de visibilité IA vérifie ce que les assistants IA disent des écoles post-bac aux futurs étudiants.",
     },
     startups: {
       title: "Startup Clinic",
@@ -70,13 +70,13 @@ const fr: Dictionary = {
         title: "Startups",
         text: "Préparation à la levée de fonds et acquisition clients pour les jeunes startups. Nous construisons avec vous le deck, les études et les listes.",
         items: ["Préparation à la levée", "Acquisition clients"],
-        cta: "Voir l'offre Startups",
+        cta: "Découvrir Startup Clinic",
       },
       schools: {
         title: "Écoles",
         text: "Audits de visibilité IA pour les écoles post-bac. Nous vérifions ce que les principaux assistants IA répondent à vos futurs étudiants, puis nous établissons le plan de correction.",
         items: ["Diagnostic flash gratuit", "Audit pilote", "Audit complet"],
-        cta: "Voir l'offre Écoles",
+        cta: "Découvrir l'audit de visibilité IA",
       },
     },
     principles: {
@@ -118,7 +118,7 @@ const fr: Dictionary = {
     tracks: {
       label: "Deux volets",
       heading: "Investisseurs ou clients : commencez par ce qui vous bloque.",
-      deliverablesLabel: "Livrables",
+      deliverablesLabel: "Ce que nous livrons",
       items: [
         {
           key: "investors",
@@ -173,7 +173,7 @@ const fr: Dictionary = {
       ],
     },
     approach: {
-      label: "Méthode",
+      label: "Démarche",
       heading: "Les mêmes quatre étapes, quel que soit le volet choisi.",
       steps: [
         {
@@ -244,7 +244,7 @@ const fr: Dictionary = {
     problem: {
       label: "Le constat",
       heading: "Les réponses sont souvent datées, voire fausses.",
-      text: "Les IA assemblent leurs réponses à partir de ce qu'elles trouvent : anciennes brochures, classements passés, forums, pages d'autres écoles. Un futur étudiant qui compare des programmes vérifie rarement la source, et retient ce qu'il a lu.",
+      text: "Les assistants IA assemblent leurs réponses à partir de ce qu'ils trouvent : anciennes brochures, classements passés, forums, pages d'autres écoles. Un futur étudiant qui compare des programmes vérifie rarement la source, et retient ce qu'il a lu.",
       listLabel: "Ce que nous vérifions",
       items: [
         { title: "Programmes", text: "Des programmes fermés, renommés ou fusionnés, toujours présentés comme ouverts." },
@@ -280,7 +280,7 @@ const fr: Dictionary = {
         },
         {
           title: "Plan de correction",
-          text: "Vous recevez une liste de corrections hiérarchisée : ce qu'il faut modifier sur votre site, et les sources publiques sur lesquelles s'appuient les IA.",
+          text: "Vous recevez une liste de corrections hiérarchisée : ce qu'il faut modifier sur votre site, et les sources publiques sur lesquelles s'appuient ces assistants.",
         },
       ],
     },
@@ -307,7 +307,7 @@ const fr: Dictionary = {
       ],
     },
     cta: {
-      label: "Diagnostic flash",
+      label: "Prochaine étape",
       heading: "Découvrez ce que l'IA dit de votre école à vos futurs étudiants.",
       text: "Envoyez-nous le nom et le site de votre école. Nous vous répondrons avec un diagnostic flash d'une page, gratuit.",
       button: "Demander votre diagnostic gratuit",

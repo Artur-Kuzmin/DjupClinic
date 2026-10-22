@@ -1,4 +1,5 @@
 .art {
+  position: relative;
   display: block;
   width: calc(44 * var(--illustration-cell));
   height: calc(32 * var(--illustration-cell));
@@ -8,6 +9,14 @@
   .art {
     --illustration-cell: 4px;
   }
+}
+
+/* Stacked SVG layers; each mark is clipped on its own box */
+.layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .mark {
@@ -20,4 +29,27 @@
 
 .accent {
   fill: var(--color-accent);
+}
+
+/* Once on load: the wrong line is struck through, then the correction is underlined */
+.strike,
+.underline {
+  animation: mark-up var(--duration-mark) var(--ease-pixel-mark) both;
+}
+
+.strike {
+  animation-delay: 0.3s;
+}
+
+.underline {
+  animation-delay: 1s;
+}
+
+@keyframes mark-up {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }

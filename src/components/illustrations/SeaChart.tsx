@@ -22,7 +22,7 @@ const NEIGHBOURS: [number, number][] = [
   [0, -1],
 ];
 
-type Cell = "ink" | "mark";
+type Cell = "coast" | "mark" | "halo" | "course";
 
 /** Distance out from the coast, which curves around the top-left corner. */
 function depth(x: number, y: number) {
@@ -89,7 +89,7 @@ function draw(): Record<Cell, string> {
     for (let x = 0; x < W; x += 1) {
       const b = band(x, y);
       const onEdge = NEIGHBOURS.some(([dx, dy]) => inside(x + dx, y + dy) && band(x + dx, y + dy) < b);
-      if (onEdge) cells.set(key(x, y), b === 1 ? "ink" : "mark");
+      if (onEdge) cells.set(key(x, y), b === 1 ? "coast" : "mark");
     }
   }
 
@@ -101,24 +101,28 @@ function draw(): Record<Cell, string> {
   }
 
   const [start, turnA, turnB, end] = COURSE;
-  const ink = [
+  const course = [
     ...dashedCourse(),
     ...waypoint(start[0], start[1], 1, "filled"),
     ...waypoint(turnA[0], turnA[1], 1, "hollow"),
     ...waypoint(turnB[0], turnB[1], 1, "hollow"),
     ...waypoint(end[0], end[1], 2, "target"),
-  ];
+  ].filter(([x, y]) => inside(x, y));
 
-  // Clear a one-cell halo so the course reads over the contours
-  for (const [x, y] of ink) {
+  // The course and a one-cell halo in the page colour sit on a layer of
+  // their own, so they can be revealed together over the intact chart
+  const layer = new Map<string, Cell>();
+  for (const [x, y] of course) {
     for (let dy = -1; dy <= 1; dy += 1) {
-      for (let dx = -1; dx <= 1; dx += 1) cells.delete(key(x + dx, y + dy));
+      for (let dx = -1; dx <= 1; dx += 1) {
+        if (inside(x + dx, y + dy)) layer.set(key(x + dx, y + dy), "halo");
+      }
     }
   }
-  for (const [x, y] of ink) if (inside(x, y)) cells.set(key(x, y), "ink");
+  for (const [x, y] of course) layer.set(key(x, y), "course");
 
-  const paths: Record<Cell, string> = { ink: "", mark: "" };
-  for (const [position, cell] of cells) {
+  const paths: Record<Cell, string> = { coast: "", mark: "", halo: "", course: "" };
+  for (const [position, cell] of [...cells, ...layer]) {
     const [x, y] = position.split(",").map(Number);
     paths[cell] += `M${x} ${y}h1v1h-1z`;
   }
@@ -127,18 +131,29 @@ function draw(): Record<Cell, string> {
 
 const PATHS = draw();
 
+/**
+ * The chart and the course are two stacked SVGs: the course layer is
+ * revealed with a clip on its own box, which browsers handle reliably
+ * (clip shapes on SVG child elements are not).
+ */
 export function SeaChart({ label, className }: { label: string; className?: string }) {
+  const viewBox = `0 0 ${W} ${H}`;
   return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className={[styles.art, className].filter(Boolean).join(" ")}
-      shapeRendering="crispEdges"
-      role="img"
-      aria-label={label}
-      focusable="false"
-    >
-      <path d={PATHS.mark} className={styles.mark} />
-      <path d={PATHS.ink} className={styles.ink} />
-    </svg>
+    <span role="img" aria-label={label} className={[styles.art, className].filter(Boolean).join(" ")}>
+      <svg viewBox={viewBox} className={styles.layer} shapeRendering="crispEdges" aria-hidden="true" focusable="false">
+        <path d={PATHS.mark} className={styles.mark} />
+        <path d={PATHS.coast} className={styles.ink} />
+      </svg>
+      <svg
+        viewBox={viewBox}
+        className={`${styles.layer} ${styles.reveal}`}
+        shapeRendering="crispEdges"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d={PATHS.halo} className={styles.halo} />
+        <path d={PATHS.course} className={styles.ink} />
+      </svg>
+    </span>
   );
 }
