@@ -43,9 +43,15 @@ export async function SiteFooter({ locale, dict }: SiteFooterProps) {
 
         <div id="contact" className={styles.contact}>
           <h2 className={styles.heading}>{dict.footer.contactHeading}</h2>
-          <a href={mailto(dict.home.contact.emailSubject)} className={styles.link}>
-            {site.email}
-          </a>
+          <ul role="list" className={styles.list}>
+            {site.emails.map((email) => (
+              <li key={email}>
+                <a href={mailto(dict.home.contact.emailSubject, undefined, [email])} className={styles.link}>
+                  {email}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

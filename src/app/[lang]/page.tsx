@@ -6,7 +6,6 @@ import { PracticePanel } from "@/components/home/PracticePanel";
 import { SoundingLine } from "@/components/illustrations/SoundingLine";
 import { Section } from "@/components/Section";
 import { SectionLabel } from "@/components/SectionLabel";
-import { mailto } from "@/config/site";
 import { isLocale, pathFor } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { pageMetadata } from "@/i18n/metadata";
@@ -89,13 +88,14 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <Dither from="var(--depth-1)" to="var(--depth-3)" rows={12} />
 
       <CtaBand
+        locale={lang}
         index={4}
         label={t.contact.label}
         heading={t.contact.heading}
         headingId="contact-heading"
         text={t.contact.text}
         button={t.contact.cta}
-        href={mailto(t.contact.emailSubject)}
+        emailSubject={t.contact.emailSubject}
         hint={dict.a11y.opensEmail}
         emailPrefix={t.contact.emailPrefix}
       />

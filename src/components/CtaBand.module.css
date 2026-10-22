@@ -38,4 +38,5 @@
 
 .email a {
   color: var(--color-text);
+  white-space: nowrap;
 }

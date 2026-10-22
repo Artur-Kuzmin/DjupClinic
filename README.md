@@ -33,9 +33,9 @@ npm run lint
 
 ## Before launch
 
-- Replace the placeholder address in `src/config/site.ts`. Every "Email us", "Book a call" and snapshot request uses it.
+- Contact addresses live in `src/config/site.ts`. Every "Email us", "Book a call" and snapshot request opens one prefilled email addressed to all of them.
 - Set `SITE_URL` to the production origin, for example `https://www.example.com`. Canonical and hreflang URLs are built from it. On Vercel the production domain is used automatically.
-- The ReBound Nordic case study shows marked slots for a testimonial and a logo. Once the client approves them, add the quote to `startups.caseStudy.testimonial` in both dictionaries and the logo to `caseStudies` in `src/config/site.ts`. To launch without them, set `showPlaceholderSlots` to `false`; the slots then disappear.
+- The ReBound Nordic testimonial and logo are hidden until the client approves them. Add the quote to `startups.caseStudy.testimonial` in both dictionaries and the logo to `caseStudies` in `src/config/site.ts`; each appears as soon as it is filled in. To preview the marked empty slots, set `showPlaceholderSlots` to `true`.
 
 ## Upgrade notes
 

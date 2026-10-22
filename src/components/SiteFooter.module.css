@@ -18,13 +18,13 @@
 
 @media (min-width: 48rem) {
   .brand {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 5;
   }
   .practices {
-    grid-column: 7 / span 3;
+    grid-column: 6 / span 3;
   }
   .contact {
-    grid-column: 10 / span 3;
+    grid-column: 9 / span 4;
   }
 }
 
@@ -64,13 +64,10 @@
   margin-top: var(--space-4);
 }
 
-.contact .link {
-  display: inline-block;
-  margin-top: var(--space-4);
-}
 
 .link {
   color: var(--color-text);
+  white-space: nowrap;
   text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;

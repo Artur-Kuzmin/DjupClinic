@@ -91,13 +91,15 @@ export default async function StartupsPage({ params }: PageProps<"/[lang]/startu
       <Dither from="var(--depth-2)" to="var(--depth-3)" rows={12} />
 
       <CtaBand
+        locale={lang}
         index={4}
         label={t.cta.label}
         heading={t.cta.heading}
         headingId="cta-heading"
         text={t.cta.text}
         button={t.cta.button}
-        href={bookCall}
+        emailSubject={t.cta.emailSubject}
+        emailBody={t.cta.emailBody}
         hint={dict.a11y.opensEmail}
         emailPrefix={t.cta.emailPrefix}
       />

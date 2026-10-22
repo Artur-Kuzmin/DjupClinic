@@ -14,17 +14,18 @@ function resolveSiteUrl(): string {
 export const site = {
   name: "Djup Clinic",
   /**
-   * PLACEHOLDER: replace with the studio's real address before launch.
-   * Every "Email us", "Book a call" and snapshot request uses it.
+   * Contact addresses. Every "Email us", "Book a call" and snapshot request
+   * opens one prefilled email addressed to all of them.
    */
-  email: "hello@djupclinic.com",
+  emails: ["a_kuzmin@stu-psbedu.paris", "g_minigulov@stu-psbedu.paris"],
   /** Absolute origin used for canonical and hreflang URLs. Set SITE_URL in production. */
   url: resolveSiteUrl(),
   /**
    * Shows clearly marked empty slots where approved content is still missing
-   * (the ReBound Nordic testimonial and logo). Set to false to hide them.
+   * (the ReBound Nordic testimonial and logo). Off until the client approves;
+   * content added to the dictionaries and caseStudies appears regardless.
    */
-  showPlaceholderSlots: true,
+  showPlaceholderSlots: false,
 } as const;
 
 type Logo = { src: string; width: number; height: number };
@@ -37,11 +38,14 @@ export const caseStudies: { reboundNordic: { logo: Logo | null } } = {
   },
 };
 
-/** Builds a mailto: link with an optional prefilled subject and body. */
-export function mailto(subject?: string, body?: string): string {
+/**
+ * Builds a mailto: link with an optional prefilled subject and body.
+ * Addressed to every contact unless specific recipients are given.
+ */
+export function mailto(subject?: string, body?: string, to: readonly string[] = site.emails): string {
   const params = new URLSearchParams();
   if (subject) params.set("subject", subject);
   if (body) params.set("body", body);
   const query = params.toString().replace(/\+/g, "%20");
-  return `mailto:${site.email}${query ? `?${query}` : ""}`;
+  return `mailto:${to.join(",")}${query ? `?${query}` : ""}`;
 }
