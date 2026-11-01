@@ -35,12 +35,15 @@ Next.js 16 App Router (read `node_modules/next/dist/docs/` before using an API),
 
 ### Never
 
-- Gamification: scores, levels, badges, progress bars, game UI, arcade sounds or anything playful in the copy.
-- Coral anywhere except CTAs and the single key highlight in a view; never coral text on bone (2.7:1).
-- A fjord CTA band that could be mistaken for the ink footer: they must stay clearly distinct.
-- Fjord pale (`--fjord-200`) for small text on fjord: use bone; fjord pale is for large text and marks only.
-- Stock photos, emoji, icon sets, gradients, glassmorphism or generic SaaS illustration.
-- Prices, invented results, invented metrics or invented quotes (see Copy).
+- Purple/blue gradients, glassmorphism, blurred blobs, soft drop shadows
+- Rounded-2xl cards everywhere, the generic 3-card feature grid
+- Emoji as icons, icon packs, component libraries (no shadcn/MUI/Chakra)
+- Centred-everything hero, stock photos, generic SaaS illustration
+- Fake social proof, invented results, metrics or quotes
+- Scroll-jacking
+- Anything gamified: no scores, levels, progress meters, HUDs, game UI metaphors, playful copy or easter eggs. Krillion is a reference for visual style only.
+- Prices anywhere on the site
+- Banned words: unlock, supercharge, elevate, seamless, game-changing, leverage
 
 ## Palette and type
 
@@ -55,6 +58,10 @@ Next.js 16 App Router (read `node_modules/next/dist/docs/` before using an API),
 | `--fjord-500` | `#35607a` | labels, decorative marks, pixel fills |
 | `--fjord-200` | `#9dbbcd` | large text and marks on dark grounds |
 | `--coral-500` | `#ee6a4c` | CTAs and key highlights only, ink text on it |
+
+- Coral appears only on CTAs and the single key highlight in a view, and never as text on bone (2.7:1).
+- The fjord CTA band must stay clearly distinct from the ink footer.
+- Small text on fjord is bone; fjord pale (`--fjord-200`) is for large text and marks only.
 
 Type: Geist for headings and body; Departure Mono only for labels, section numbers, nav and buttons, at 11px multiples (its pixel grid). Fluid sizes run from 375px to 1440px viewports; see `tokens.css`.
 
