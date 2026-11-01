@@ -30,8 +30,8 @@ const BANDS: { colour: Colour; from: number }[] = [
 ];
 const SEAM_ROWS = 6; // ordered-dither rows between two bands
 const FADE_COLUMNS = 16; // the water dissolves into the page at the right edge
-const BOAT_X = 40;
-const LINE_X = BOAT_X + 26;
+const BOAT_X = 41;
+const LINE_X = BOAT_X + 25;
 /** Below this row the line is drawn light, against the dark bands. */
 const LINE_LIGHT_FROM = 60;
 
@@ -191,24 +191,95 @@ function seabed() {
   return layer;
 }
 
-/** The færing: clinker-built, double-ended, stems rising at both ends. */
+/**
+ * The færing side on: clinker-built and double-ended. Per column of the
+ * left half (mirrored), the sheer (top) and keel (bottom) row of the hull.
+ * The ends stay full; the stem is the hull's leading edge, its head
+ * curling out above the sheer.
+ */
+const SHEER = [14, 15, 16, 17, 18, 18, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 20];
+const KEEL = [14, 19, 21, 23, 25, 25, 26, 27, 27, 27, 28, 28, 28, 28, 28, 28, 28];
+const HULL_COLUMNS = [...SHEER.keys(), ...[...SHEER.keys()].reverse()];
+/** Rows under the surface where the water veils the hull. */
+const VEIL_ROWS = 4;
+
+/** Cells from (x0, y0) to (x1, y1) (Bresenham). */
+function stroke(layer: Layer, [x0, y0]: [number, number], [x1, y1]: [number, number], colour: Colour) {
+  const dx = Math.abs(x1 - x0);
+  const dy = -Math.abs(y1 - y0);
+  const sx = x0 < x1 ? 1 : -1;
+  const sy = y0 < y1 ? 1 : -1;
+  let err = dx + dy;
+  for (;;) {
+    layer.set(x0, y0, colour);
+    if (x0 === x1 && y0 === y1) break;
+    const e2 = 2 * err;
+    if (e2 >= dy) {
+      err += dy;
+      x0 += sx;
+    }
+    if (e2 <= dx) {
+      err += dx;
+      y0 += sy;
+    }
+  }
+}
+
+/**
+ * The hull: an ink outline and stem posts, mist planking with a fjord lap
+ * line along the sheer for the clinker strakes, so it reads light against
+ * the water. It sits low, the waterline cutting the hull. One oar rests in
+ * its tholepin, blade down in the water.
+ */
 function boat() {
   const layer = new Layer();
-  // Per column of the left half (mirrored): top and bottom row of the hull,
-  // counted from 8 rows above the surface
-  const top = [0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
-  const bottom = [1, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10];
-  const columns = [...top.keys(), ...[...top.keys()].reverse()];
-  columns.forEach((c, dx) => {
-    const t = top[c];
-    for (let row = t; row <= bottom[c]; row += 1) {
-      const strake = bottom[c] - t >= 4 && row === t + 2;
-      layer.set(BOAT_X + dx, SURFACE - 8 + row, strake ? "deep" : "ink");
+  const inHull = (dx: number, y: number) => {
+    const c = HULL_COLUMNS[dx];
+    return c !== undefined && y >= SHEER[c] && y <= KEEL[c];
+  };
+  HULL_COLUMNS.forEach((c, dx) => {
+    for (let y = SHEER[c]; y <= KEEL[c]; y += 1) {
+      const edge = c <= 1 || !inHull(dx - 1, y) || !inHull(dx + 1, y) || !inHull(dx, y - 1) || !inHull(dx, y + 1);
+      layer.set(BOAT_X + dx, y, edge ? "ink" : y === SHEER[c] + 3 ? "fjord" : "mist");
     }
   });
-  // The line leaves the gunwale and runs a little way into the water, so
-  // it stays joined to the line below while the boat bobs
-  for (let y = SURFACE - 4; y <= SURFACE + 2; y += 1) layer.set(LINE_X, y, "ink");
+  // Oar: the handle inboard above the gunwale, the loom out over the bow quarter
+  stroke(layer, [BOAT_X + 19, 16], [BOAT_X - 2, 27], "ink");
+  for (let x = BOAT_X - 6; x <= BOAT_X - 2; x += 1) {
+    layer.set(x, 27, "ink");
+    layer.set(x, 28, "ink");
+  }
+  return layer;
+}
+
+/**
+ * The water over the submerged hull: a staggered dither of mist, one cell
+ * in four for the first two rows and one in two below, that stays still
+ * while the boat bobs beneath it, so the hull below the waterline shows
+ * through, dimmed. (Every row keeps the same density, so the keel never
+ * turns into a dotted line.)
+ */
+function veil() {
+  const layer = new Layer();
+  for (let y = SURFACE + 1; y <= SURFACE + VEIL_ROWS; y += 1) {
+    const deep = y - SURFACE > 2;
+    for (let x = BOAT_X - 6; x < BOAT_X + HULL_COLUMNS.length; x += 1) {
+      const m = (x + 2 * y) % 4;
+      if (m === 0 || (deep && m === 2)) layer.set(x, y, "mist");
+    }
+  }
+  return layer;
+}
+
+/**
+ * The sounding line going over the side: from just above the gunwale, down
+ * across the hull and through the veil, so it stays crisp and joined to
+ * the line below while the boat bobs.
+ */
+function rigging() {
+  const layer = new Layer();
+  const c = HULL_COLUMNS[LINE_X - BOAT_X];
+  for (let y = SHEER[c] - 1; y <= SURFACE + VEIL_ROWS; y += 1) layer.set(LINE_X, y, "ink");
   return layer;
 }
 
@@ -291,4 +362,6 @@ export const SCENE_PATHS = {
   line: [line(0), line(-1.6), line(1.6)].map((l) => l.paths()),
   weight: weight().paths(),
   boat: boat().paths(),
+  veil: veil().paths(),
+  rigging: rigging().paths(),
 };

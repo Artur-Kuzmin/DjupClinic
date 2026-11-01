@@ -85,8 +85,13 @@ export function SoundingScene({ label, className }: { label: string; className?:
           </g>
         ))}
         <Cells paths={SCENE_PATHS.weight} />
+        {/* The hull bobs under a still veil of water; the line rides on top */}
         <g className={styles.boat}>
           <Cells paths={SCENE_PATHS.boat} />
+        </g>
+        <Cells paths={SCENE_PATHS.veil} />
+        <g className={styles.boat}>
+          <Cells paths={SCENE_PATHS.rigging} />
         </g>
       </svg>
     </AmbientLoop>
