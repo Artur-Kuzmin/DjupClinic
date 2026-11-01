@@ -122,7 +122,7 @@ const en = {
       lead: "Two focused tracks for early-stage founders: getting ready for investors, and finding your first customers. We do the research and build the material with you.",
       cta: "Book a call",
       illustrationAlt:
-        "Pixel drawing of a sea chart: depth contours off a coastline, and a course plotted across them.",
+        "Pixel drawing of a sea chart: a harbour on a hatched coastline, a lighthouse on a headland, islands, skerries and buoys, depth contours darkening offshore, and a dashed course that a small vessel follows out to a coral mark in deep water.",
     },
     tracks: {
       label: "Two tracks",

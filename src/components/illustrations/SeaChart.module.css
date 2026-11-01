@@ -1,69 +1,163 @@
+/* 160 x 104 cells, always at a whole number of px per cell: 2px on phones,
+   4px under the hero text from tablet, 3px beside it from 1280px, and 4px
+   again from 1440px, where six columns fit 640px */
 .art {
-  width: calc(56 * var(--illustration-cell));
-  height: calc(36 * var(--illustration-cell));
+  --chart-cell: 2px;
+  --chart-loop: calc(2 * var(--duration-loop));
+  width: calc(160 * var(--chart-cell));
+  height: calc(104 * var(--chart-cell));
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 48rem) {
   .art {
-    --illustration-cell: 4px;
+    --chart-cell: 4px;
   }
 }
 
-.svg {
+@media (min-width: 80rem) {
+  .art {
+    --chart-cell: 3px;
+  }
+}
+
+@media (min-width: 90rem) {
+  .art {
+    --chart-cell: 4px;
+  }
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.land {
-  fill: var(--mist);
+/* Site palette only; coral appears once, on the destination */
+.page { color: var(--color-bg); }
+.bone { color: var(--bone-1); }
+.mist { color: var(--mist); }
+.pale { color: var(--fjord-200); }
+.fjord { color: var(--fjord-500); }
+.deep { color: var(--fjord-700); }
+.ink { color: var(--ink); }
+.muted { color: var(--ink-600); }
+.coral { color: var(--coral-500); }
+
+/* Cell runs are 1-cell strokes through the middle of each row; the
+   pattern tiles are plain fills */
+.runs {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
 }
 
-.mark {
-  fill: var(--color-mark);
-}
-
-.ink {
-  fill: var(--color-text);
-}
-
-.halo {
-  fill: var(--color-bg);
+.fill {
+  fill: currentColor;
 }
 
 /* ---- Ambient loop ------------------------------------------------------
-   The course dashes march toward the target one cell every 0.75s (four
-   frames, a 3s period), and the target pings twice near the end of each
-   12s cycle. The un-animated state is the finished chart. */
+   One 24s cycle (--chart-loop) in 40 steps of 0.6s. Steps 0-19 plot the
+   course one dash per step (20 = DASHES in sea-chart.ts) with the vessel
+   just ahead of the last dash; steps 20-31 hold the finished course; steps
+   32-35 dissolve it a dither quarter at a time; steps 36-39 leave the chart
+   clear before the next run. The lighthouse and buoys blink on periods
+   that divide the cycle, out of step with each other. The un-animated
+   state of every layer is the finished frame. */
 
-.dash {
-  animation: dash calc(var(--duration-loop) / 4) step-end infinite;
+/* Each quarter of the course plots by a stepped clip and dissolves on its own step */
+@keyframes plot {
+  0% {
+    clip-path: inset(0 var(--plot-from) 0 0);
+    animation-timing-function: steps(20, end);
+  }
+  50%,
+  100% {
+    clip-path: inset(0 var(--plot-to) 0 0);
+  }
 }
 
-.dashLater {
+.dissolve0 { animation-name: plot, dissolve0; }
+.dissolve1 { animation-name: plot, dissolve1; }
+.dissolve2 { animation-name: plot, dissolve2; }
+.dissolve3 { animation-name: plot, dissolve3; }
+
+.dissolve0,
+.dissolve1,
+.dissolve2,
+.dissolve3 {
+  animation-duration: var(--chart-loop);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear, step-end;
+}
+
+@keyframes dissolve0 { 0% { opacity: 1; } 80% { opacity: 0; } }
+@keyframes dissolve1 { 0% { opacity: 1; } 82.5% { opacity: 0; } }
+@keyframes dissolve2 { 0% { opacity: 1; } 85% { opacity: 0; } }
+@keyframes dissolve3 { 0% { opacity: 1; } 87.5% { opacity: 0; } }
+
+/* One frame per plotting step, each shown for its step (delays set inline) */
+.vessel {
   opacity: 0;
+  animation: vessel var(--chart-loop) step-end infinite;
 }
 
-@keyframes dash {
+@keyframes vessel {
+  0% { opacity: 1; }
+  2.5% { opacity: 0; }
+}
+
+/* The finished frame: arrives with the last dash, leaves as the course dissolves */
+.vesselLast {
+  animation: vessel-last var(--chart-loop) step-end infinite;
+}
+
+@keyframes vessel-last {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  85% { opacity: 0; }
+}
+
+/* Lighthouse: two flashes every 6s */
+.beams {
+  animation: flash-two calc(var(--chart-loop) / 4) step-end infinite;
+}
+
+@keyframes flash-two {
+  0% { opacity: 1; }
+  8% { opacity: 0; }
+  16% { opacity: 1; }
+  24% { opacity: 0; }
+}
+
+/* Buoys: one flash each, every 4s, 3s and 8s, offset from one another */
+.buoy0,
+.buoy1,
+.buoy2 {
+  animation: blink step-end infinite;
+}
+
+.buoy0 { animation-duration: calc(var(--chart-loop) / 6); }
+.buoy1 { animation-duration: calc(var(--chart-loop) / 8); animation-delay: calc(var(--chart-loop) / -24); }
+.buoy2 { animation-duration: calc(var(--chart-loop) / 3); animation-delay: calc(var(--chart-loop) / -8); }
+
+@keyframes blink {
   0% { opacity: 1; }
   25% { opacity: 0; }
 }
 
-.ping {
-  opacity: 0;
-  animation: ping var(--duration-loop) step-end infinite;
-}
-
-@keyframes ping {
-  80% { opacity: 1; }
-  84% { opacity: 0; }
-  88% { opacity: 1; }
-  92% { opacity: 0; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .dash,
-  .ping {
+  .dissolve0,
+  .dissolve1,
+  .dissolve2,
+  .dissolve3,
+  .vessel,
+  .vesselLast,
+  .beams,
+  .buoy0,
+  .buoy1,
+  .buoy2 {
     animation: none;
   }
 }

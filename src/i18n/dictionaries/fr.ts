@@ -120,7 +120,7 @@ const fr: Dictionary = {
       lead: "Deux volets ciblés pour les fondateurs en phase de démarrage : se préparer aux investisseurs, et trouver ses premiers clients. Nous menons les recherches et construisons les livrables avec vous.",
       cta: "Réserver un appel",
       illustrationAlt:
-        "Dessin en pixels d'une carte marine : des isobathes au large d'une côte, et une route tracée qui les traverse.",
+        "Dessin en pixels d'une carte marine : un port sur une côte hachurée, un phare sur un cap, des îles, des écueils et des bouées, des isobathes qui s'assombrissent vers le large, et une route en pointillés qu'un petit bateau suit jusqu'à un repère corail en eau profonde.",
     },
     tracks: {
       label: "Deux volets",

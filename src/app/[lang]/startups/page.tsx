@@ -48,6 +48,7 @@ export default async function StartupsPage({ params }: PageProps<"/[lang]/startu
           </ButtonLink>
         }
         illustration={<SeaChart label={t.hero.illustrationAlt} />}
+        wideIllustration
       />
 
       <Section depth={0} id="tracks" labelledBy="tracks-heading" className={styles.tracks}>

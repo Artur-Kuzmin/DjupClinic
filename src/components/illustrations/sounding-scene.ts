@@ -1,3 +1,5 @@
+import { Layer, strokeCells, threshold } from "./pixel-grid";
+
 /**
  * Welcome page scene: a cross-section of a Nordic sea, from the surface to
  * the seabed. A færing on the surface lets a sounding line down through
@@ -35,56 +37,14 @@ const LINE_X = BOAT_X + 25;
 /** Below this row the line is drawn light, against the dark bands. */
 const LINE_LIGHT_FROM = 60;
 
-const BAYER = [
-  [0, 8, 2, 10],
-  [12, 4, 14, 6],
-  [3, 11, 1, 9],
-  [15, 7, 13, 5],
-] as const;
-
-function threshold(x: number, y: number) {
-  return (BAYER[((y % 4) + 4) % 4][((x % 4) + 4) % 4] + 0.5) / 16;
-}
-
 /** Seabed height per column: gently uneven. */
 function floor(x: number) {
   return 88 + Math.round(1.5 * Math.sin(x / 9) + Math.sin(x / 4.3));
 }
 
-class Layer {
-  private cells = new Map<string, Colour>();
-
-  set(x: number, y: number, colour: Colour) {
-    this.cells.set(`${x},${y}`, colour);
-  }
-
-  /** One path per colour, horizontal runs merged. */
-  paths(): Paths {
-    const rows = new Map<number, Map<number, Colour>>();
-    for (const [position, colour] of this.cells) {
-      const [x, y] = position.split(",").map(Number);
-      if (!rows.has(y)) rows.set(y, new Map());
-      rows.get(y)!.set(x, colour);
-    }
-    const out: Paths = {};
-    for (const [y, row] of [...rows].sort((a, b) => a[0] - b[0])) {
-      const xs = [...row.keys()].sort((a, b) => a - b);
-      let i = 0;
-      while (i < xs.length) {
-        const colour = row.get(xs[i])!;
-        let run = 1;
-        while (xs[i + run] === xs[i] + run && row.get(xs[i + run]) === colour) run += 1;
-        out[colour] = `${out[colour] ?? ""}M${xs[i]} ${y}h${run}v1h-${run}z`;
-        i += run;
-      }
-    }
-    return out;
-  }
-}
-
 /** Cells of one tile, as a path. */
 function tile(width: number, height: number, y0: number, x0: number, keep: (x: number, y: number) => boolean) {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) if (keep(x0 + x, y0 + y)) layer.set(x, y, "ink");
   }
@@ -124,7 +84,7 @@ function water() {
 }
 
 function hills() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   for (let x = 0; x < W; x += 1) {
     const west = 10 * Math.exp(-(((x - 14) / 16) ** 2)) + 5 * Math.exp(-(((x - 36) / 9) ** 2));
     const east = 7 * Math.exp(-(((x - 108) / 13) ** 2)) + 3 * Math.exp(-(((x - 92) / 8) ** 2));
@@ -135,7 +95,7 @@ function hills() {
 
 /** Small crests above the surface line, one 12-cell pattern, drawn 2 cells wider to the left for the shift. */
 function crests() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   for (let x = -2; x < W - FADE_COLUMNS - 2; x += 1) {
     const m = ((x % 12) + 12) % 12;
     if (m === 3 || m === 4 || m === 9) layer.set(x, SURFACE - 1, "fjord");
@@ -143,7 +103,7 @@ function crests() {
   return layer;
 }
 
-function rock(layer: Layer, cx: number, base: number, rx: number, ry: number) {
+function rock(layer: Layer<Colour>, cx: number, base: number, rx: number, ry: number) {
   for (let y = base - ry; y <= base; y += 1) {
     for (let x = cx - rx; x <= cx + rx; x += 1) {
       const nx = (x - cx) / rx;
@@ -158,7 +118,7 @@ function rock(layer: Layer, cx: number, base: number, rx: number, ry: number) {
   }
 }
 
-function kelp(layer: Layer, x: number, base: number, height: number, phase: number) {
+function kelp(layer: Layer<Colour>, x: number, base: number, height: number, phase: number) {
   for (let i = 0; i < height; i += 1) {
     const y = base - i;
     const cx = x + Math.round(Math.sin(i / 4 + phase) * 1.2);
@@ -171,7 +131,7 @@ function kelp(layer: Layer, x: number, base: number, height: number, phase: numb
 }
 
 function seabed() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   kelp(layer, 7, 84, 24, 0);
   kelp(layer, 14, 82, 32, 1.6);
   kelp(layer, 21, 85, 19, 3);
@@ -203,28 +163,6 @@ const HULL_COLUMNS = [...SHEER.keys(), ...[...SHEER.keys()].reverse()];
 /** Rows under the surface where the water veils the hull. */
 const VEIL_ROWS = 4;
 
-/** Cells from (x0, y0) to (x1, y1) (Bresenham). */
-function stroke(layer: Layer, [x0, y0]: [number, number], [x1, y1]: [number, number], colour: Colour) {
-  const dx = Math.abs(x1 - x0);
-  const dy = -Math.abs(y1 - y0);
-  const sx = x0 < x1 ? 1 : -1;
-  const sy = y0 < y1 ? 1 : -1;
-  let err = dx + dy;
-  for (;;) {
-    layer.set(x0, y0, colour);
-    if (x0 === x1 && y0 === y1) break;
-    const e2 = 2 * err;
-    if (e2 >= dy) {
-      err += dy;
-      x0 += sx;
-    }
-    if (e2 <= dx) {
-      err += dx;
-      y0 += sy;
-    }
-  }
-}
-
 /**
  * The hull: an ink outline and stem posts, mist planking with a fjord lap
  * line along the sheer for the clinker strakes, so it reads light against
@@ -232,7 +170,7 @@ function stroke(layer: Layer, [x0, y0]: [number, number], [x1, y1]: [number, num
  * its tholepin, blade down in the water.
  */
 function boat() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   const inHull = (dx: number, y: number) => {
     const c = HULL_COLUMNS[dx];
     return c !== undefined && y >= SHEER[c] && y <= KEEL[c];
@@ -244,7 +182,7 @@ function boat() {
     }
   });
   // Oar: the handle inboard above the gunwale, the loom out over the bow quarter
-  stroke(layer, [BOAT_X + 19, 16], [BOAT_X - 2, 27], "ink");
+  for (const [x, y] of strokeCells([BOAT_X + 19, 16], [BOAT_X - 2, 27])) layer.set(x, y, "ink");
   for (let x = BOAT_X - 6; x <= BOAT_X - 2; x += 1) {
     layer.set(x, 27, "ink");
     layer.set(x, 28, "ink");
@@ -260,7 +198,7 @@ function boat() {
  * turns into a dotted line.)
  */
 function veil() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   for (let y = SURFACE + 1; y <= SURFACE + VEIL_ROWS; y += 1) {
     const deep = y - SURFACE > 2;
     for (let x = BOAT_X - 6; x < BOAT_X + HULL_COLUMNS.length; x += 1) {
@@ -277,7 +215,7 @@ function veil() {
  * the line below while the boat bobs.
  */
 function rigging() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   const c = HULL_COLUMNS[LINE_X - BOAT_X];
   for (let y = SHEER[c] - 1; y <= SURFACE + VEIL_ROWS; y += 1) layer.set(LINE_X, y, "ink");
   return layer;
@@ -287,7 +225,7 @@ function rigging() {
 const WEIGHT = ["..#..", ".#.#.", "..#..", ".###.", ".###.", "#####", "#####"];
 
 function weight() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   const base = floor(LINE_X) - 1;
   WEIGHT.forEach((row, i) => {
     [...row].forEach((ch, dx) => {
@@ -299,7 +237,7 @@ function weight() {
 
 /** The line underwater, bowed by `bow` cells at its middle. */
 function line(bow: number) {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   const y0 = SURFACE + 1;
   const y1 = floor(LINE_X) - WEIGHT.length;
   for (let y = y0; y <= y1; y += 1) {
@@ -325,7 +263,7 @@ const SCHOOL: [number, number, boolean][] = [
 
 /** The school twice, one scene-width apart, so it can drift right and wrap. */
 function fish() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   for (const shift of [0, -W]) {
     for (const [x, y, small] of SCHOOL) {
       (small ? FRY : FISH).forEach((row, dy) => {
@@ -344,7 +282,7 @@ const MOTES: [number, number][] = [
 ];
 
 function particles() {
-  const layer = new Layer();
+  const layer = new Layer<Colour>();
   const { y: top } = SCENE.particleClip;
   for (let copy = 0; copy < 3; copy += 1) {
     for (const [x, y] of MOTES) layer.set(x, top + y + copy * SCENE.particlePeriod, "mist");
