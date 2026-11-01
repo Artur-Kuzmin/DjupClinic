@@ -1,7 +1,8 @@
 /* ---- Opening: statement, sea scene and the two practice doors ----------
-   Phone: statement, both doors, then the scene, so both practice headlines
-   stay on the first screen. Tablet: the scene under the statement.
-   Desktop: the scene beside the statement. */
+   Phone: statement, the scene edge to edge, then both doors, the top of
+   the first still on the first screen (both practices are also in the
+   header nav). Tablet: the scene under the statement. Desktop: the scene
+   beside the statement. */
 
 .opening {
   padding-block: var(--space-6) var(--section-pad);
@@ -36,8 +37,14 @@
   grid-column: 1 / -1;
 }
 
+/* Phone order: the scene comes before the doors */
 .scene {
-  margin-top: var(--space-2);
+  order: 1;
+}
+
+.panelStartups,
+.panelSchools {
+  order: 2;
 }
 
 /* Tablet: statement, scene at the right, then two equal doors */
@@ -46,6 +53,11 @@
     grid-row: 1;
     grid-column: 1 / span 9;
     margin-bottom: 0;
+  }
+  .scene,
+  .panelStartups,
+  .panelSchools {
+    order: 0;
   }
   .scene {
     grid-row: 2;

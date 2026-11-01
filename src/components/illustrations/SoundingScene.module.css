@@ -1,15 +1,9 @@
-/* 128 x 96 cells, always at a whole number of px per cell:
-   2px on phones, 3px from tablet, 4px from wide desktop */
+/* 128 x 96 cells, always at a whole number of px per cell: 3px up to
+   desktop, 4px from wide desktop */
 .art {
-  --scene-cell: 2px;
+  --scene-cell: 3px;
   width: calc(128 * var(--scene-cell));
   height: calc(96 * var(--scene-cell));
-}
-
-@media (min-width: 48rem) {
-  .art {
-    --scene-cell: 3px;
-  }
 }
 
 @media (min-width: 80rem) {
@@ -22,7 +16,48 @@
   display: block;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+}
+
+/* Phones: the frame runs edge to edge and clips. The drawing (384px) is
+   centred on a whole pixel, so cells stay crisp: a 375px screen crops a
+   cell or two at each side; wider phones show the hills, water and seabed
+   continuing past the drawing (the bleed in sounding-scene.ts) instead of
+   a stretched picture. The right-edge dissolve is dropped. */
+.frame {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  overflow: clip;
+}
+
+.frame .art {
+  margin-left: calc((100vw - 128 * var(--scene-cell)) / 2);
+  margin-left: round(down, (100vw - 128 * var(--scene-cell)) / 2, 1px);
+}
+
+.frame .svg {
+  overflow: visible;
+}
+
+.fade {
+  display: none;
+}
+
+/* From tablet: a plain box in the page grid, the dissolve at its right */
+@media (min-width: 48rem) {
+  .frame {
+    width: auto;
+    margin-inline: 0;
+    overflow: visible;
+  }
+  .frame .art {
+    margin-left: 0;
+  }
+  .frame .svg {
+    overflow: hidden;
+  }
+  .fade {
+    display: inline;
+  }
 }
 
 /* Site palette only; coral appears once, on the weight */

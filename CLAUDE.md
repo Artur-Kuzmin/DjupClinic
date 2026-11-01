@@ -32,6 +32,7 @@ Next.js 16 App Router (read `node_modules/next/dist/docs/` before using an API),
 - 8-bit is a detail, at about 10% of the page: pixel illustrations drawn on a cell grid, the Departure Mono labels, ordered-dither transitions. Never gamified.
 - Depth is expressed visually only: sections darken as the page goes down (bone, bone-1, mist, fjord, ink) with ordered-dither transitions between them. Never spell it out in copy.
 - Pixel illustrations always render at a whole number of px per cell (`shapeRendering="crispEdges"`). Motion moves by whole cells (`steps()`), loops slowly through `AmbientLoop`, pauses off-screen, and holds the finished frame under `prefers-reduced-motion`.
+- Welcome page on mobile (below 768px): the first screen shows the statement, the sounding scene (edge to edge, 3px per cell) and the start of the Startups panel; both practices remain reachable from the header nav.
 
 ### Never
 

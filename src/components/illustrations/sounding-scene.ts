@@ -18,6 +18,12 @@ export const SCENE = {
   particlePeriod: 24,
   /** Clip box for the particle field: from the fjord band to the seabed. */
   particleClip: { y: 44, height: 46 },
+  /**
+   * Cells drawn past each side for phones, where the scene runs edge to
+   * edge: the hills, water, surface and seabed continue; the boat, fish
+   * and particles stay inside. 64 cells at 3px covers screens up to 768px.
+   */
+  bleed: 64,
 } as const;
 
 export type Colour = "bone" | "mist" | "fjord" | "deep" | "ink" | "coral";
@@ -80,12 +86,25 @@ function water() {
     height: H - SURFACE,
     tile: tile(FADE_COLUMNS, 4, 0, fadeX, (x, y) => threshold(x, y) >= (W - x - 0.5) / FADE_COLUMNS),
   };
-  return { surface: SURFACE, bands, seams, fade };
+  return { surface: SURFACE, bands, seams, fade, bleedFloor: bleedFloor() };
+}
+
+/**
+ * The seabed past the sides, as one pattern tile: a flat floor at the
+ * scene's edge height, dithered like the drawn seabed below it.
+ */
+function bleedFloor() {
+  const y = floor(0);
+  const layer = new Layer<Colour>();
+  for (let d = 0; d < H - y; d += 1) {
+    for (let x = 0; x < 4; x += 1) layer.set(x, d, d === 0 ? "mist" : threshold(x, y + d) < 0.55 - d * 0.1 ? "fjord" : "deep");
+  }
+  return { y, height: H - y, tile: layer.paths() };
 }
 
 function hills() {
   const layer = new Layer<Colour>();
-  for (let x = 0; x < W; x += 1) {
+  for (let x = -SCENE.bleed; x < W + SCENE.bleed; x += 1) {
     const west = 10 * Math.exp(-(((x - 14) / 16) ** 2)) + 5 * Math.exp(-(((x - 36) / 9) ** 2));
     const east = 7 * Math.exp(-(((x - 108) / 13) ** 2)) + 3 * Math.exp(-(((x - 92) / 8) ** 2));
     for (let y = SURFACE - Math.round(Math.max(west, east)); y < SURFACE; y += 1) layer.set(x, y, "mist");
@@ -93,10 +112,10 @@ function hills() {
   return layer;
 }
 
-/** Small crests above the surface line, one 12-cell pattern, drawn 2 cells wider to the left for the shift. */
+/** Small crests above the surface line, one 12-cell pattern, across the bleed (the fade covers them at the right edge where it shows). */
 function crests() {
   const layer = new Layer<Colour>();
-  for (let x = -2; x < W - FADE_COLUMNS - 2; x += 1) {
+  for (let x = -SCENE.bleed; x < W + SCENE.bleed; x += 1) {
     const m = ((x % 12) + 12) % 12;
     if (m === 3 || m === 4 || m === 9) layer.set(x, SURFACE - 1, "fjord");
   }
