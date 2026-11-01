@@ -70,7 +70,7 @@ const fr: Dictionary = {
     statement:
       "Levée de fonds et croissance pour les jeunes startups. Audits de visibilité IA pour les écoles.",
     illustrationAlt:
-      "Dessin en pixels : une ligne de sonde et son plomb descendant dans une eau de plus en plus profonde.",
+      "Dessin en pixels d'une mer en coupe : depuis une petite barque en bois, une ligne de sonde descend près d'un banc de poissons, à travers une eau de plus en plus sombre, jusqu'à un plomb posé entre les rochers et le varech.",
     split: {
       heading: "Choisissez votre pôle",
       startups: {

@@ -1,64 +1,61 @@
-/* ---- Hero: one statement, the sounding line beside it ----------------- */
+/* ---- Opening: statement, sea scene and the two practice doors ----------
+   Phone: statement, both doors, then the scene, so both practice headlines
+   stay on the first screen. Tablet: the scene under the statement.
+   Desktop: the scene beside the statement. */
 
-.hero {
-  padding-block: var(--space-6) var(--space-7);
+.opening {
+  padding-block: var(--space-6) var(--section-pad);
 }
 
 @media (min-width: 48rem) {
-  .hero {
-    padding-block: var(--space-9);
+  .opening {
+    padding-top: var(--space-9);
   }
 }
 
-.heroGrid {
-  align-items: end;
+.openingGrid {
+  row-gap: var(--space-5);
 }
 
 .statement {
   grid-column: 1 / -1;
+  margin-bottom: calc(var(--space-7) - var(--space-5));
   font-size: var(--text-h2);
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-heading);
 }
 
-.illustration {
-  display: none;
-}
-
-@media (min-width: 48rem) {
-  .statement {
-    grid-column: 1 / span 9;
-  }
-  .illustration {
-    display: block;
-    grid-column: 10 / span 3;
-    justify-self: end;
-  }
-}
-
-@media (min-width: 64rem) {
-  .statement {
-    grid-column: 1 / span 8;
-  }
-}
-
-/* ---- Split: two doors, 7 and 5 columns -------------------------------- */
-
+/* The doors are grid items of the opening grid */
 .split {
-  padding-bottom: var(--section-pad);
-}
-
-.splitGrid {
-  row-gap: var(--space-5);
+  display: contents;
 }
 
 .panelStartups,
-.panelSchools {
+.panelSchools,
+.scene {
   grid-column: 1 / -1;
 }
 
-/* Tablet: equal halves. Desktop: the asymmetric 7 / 5 split. */
+.scene {
+  margin-top: var(--space-2);
+}
+
+/* Tablet: statement, scene at the right, then two equal doors */
 @media (min-width: 48rem) {
+  .statement {
+    grid-row: 1;
+    grid-column: 1 / span 9;
+    margin-bottom: 0;
+  }
+  .scene {
+    grid-row: 2;
+    justify-self: end;
+    margin-block: var(--space-6) calc(var(--space-9) - var(--space-5));
+  }
+  .panelStartups,
+  .panelSchools {
+    grid-row: 3;
+  }
   .panelStartups {
     grid-column: 1 / span 6;
   }
@@ -67,7 +64,21 @@
   }
 }
 
+/* Desktop: statement and scene side by side, then the asymmetric 7 / 5 split */
 @media (min-width: 64rem) {
+  .statement {
+    grid-column: 1 / span 6;
+    align-self: end;
+  }
+  .scene {
+    grid-row: 1;
+    grid-column: 7 / span 6;
+    margin-top: 0;
+  }
+  .panelStartups,
+  .panelSchools {
+    grid-row: 2;
+  }
   .panelStartups {
     grid-column: 1 / span 7;
   }

@@ -137,10 +137,7 @@
   --ease-layout: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-pixel: steps(4, end);
   --ease-pixel-short: steps(2, end);
-  --ease-pixel-drop: steps(12, end);
-  --ease-pixel-mark: steps(8, end);
-  --duration-draw: 1200ms; /* one-off illustration reveals on load */
-  --duration-mark: 600ms;
+  --duration-loop: 12s; /* one cycle of the ambient illustration loops */
 }
 
 /* Tone-aware composites. Re-declared on every tone scope so they pick up

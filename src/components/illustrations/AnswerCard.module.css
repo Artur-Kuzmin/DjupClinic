@@ -1,8 +1,6 @@
 .art {
-  position: relative;
-  display: block;
   width: calc(44 * var(--illustration-cell));
-  height: calc(32 * var(--illustration-cell));
+  height: calc(38 * var(--illustration-cell));
 }
 
 @media (min-width: 64rem) {
@@ -31,25 +29,71 @@
   fill: var(--color-accent);
 }
 
-/* Once on load: the wrong line is struck through, then the correction is underlined */
+/* ---- Ambient loop ------------------------------------------------------
+   One 12s cycle: the wrong line is struck through, the correction types
+   in, its underline draws, the cursor blinks through the hold, then the
+   marks clear and the cycle starts again. Each segment's timing function
+   is steps(), so every reveal moves by whole cells. The un-animated state
+   is the finished card. */
+
 .strike,
+.correction,
 .underline {
-  animation: mark-up var(--duration-mark) var(--ease-pixel-mark) both;
+  animation: var(--duration-loop) infinite;
 }
 
 .strike {
-  animation-delay: 0.3s;
+  animation-name: strike;
+}
+
+.correction {
+  animation-name: correction;
 }
 
 .underline {
-  animation-delay: 1s;
+  animation-name: underline;
 }
 
-@keyframes mark-up {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
+@keyframes strike {
+  0%, 6% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(8, end); }
+  11%, 94% { clip-path: inset(0 0 0 0); animation-timing-function: step-end; }
+  95%, 100% { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes correction {
+  0%, 15% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(12, end); }
+  23%, 94% { clip-path: inset(0 0 0 0); animation-timing-function: step-end; }
+  95%, 100% { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes underline {
+  0%, 25% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(8, end); }
+  30%, 94% { clip-path: inset(0 0 0 0); animation-timing-function: step-end; }
+  95%, 100% { clip-path: inset(0 100% 0 0); }
+}
+
+/* Hidden in the finished frame; blinks while the correction holds */
+.cursor {
+  opacity: 0;
+  animation: cursor var(--duration-loop) step-end infinite;
+}
+
+@keyframes cursor {
+  15% { opacity: 1; }
+  32% { opacity: 0; }
+  38% { opacity: 1; }
+  44% { opacity: 0; }
+  50% { opacity: 1; }
+  56% { opacity: 0; }
+  62% { opacity: 1; }
+  68% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strike,
+  .correction,
+  .underline,
+  .cursor {
+    animation: none;
   }
 }

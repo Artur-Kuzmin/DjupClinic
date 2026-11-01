@@ -72,7 +72,7 @@ const en = {
     statement:
       "Fundraising and growth for early-stage startups. AI search audits for French schools.",
     illustrationAlt:
-      "Pixel drawing: a sounding line and its lead weight dropping through deepening water.",
+      "Pixel drawing of a sea in cross-section: a small wooden boat on the surface lets a sounding line down past a school of fish, through darkening water, to a lead weight resting among rocks and kelp on the seabed.",
     split: {
       heading: "Choose a practice",
       startups: {

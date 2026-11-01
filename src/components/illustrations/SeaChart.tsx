@@ -1,20 +1,29 @@
+import { AmbientLoop } from "./AmbientLoop";
 import styles from "./SeaChart.module.css";
 
 /**
- * Startup Clinic illustration: a fragment of sea chart. A coastline, depth
- * contours stepping out from it, spot soundings, and a dashed course with
- * waypoints heading for deeper water. Drawn on a 48 x 30 grid at build time.
- * Two colours on bone: ink (coast, course) and fjord (contours, soundings).
+ * Startup Clinic illustration: a fragment of sea chart. A neat-line border
+ * with graduated edges, shaded land behind a coastline, depth contours
+ * stepping out from it, spot soundings, a compass rose, and a dashed course
+ * with waypoints heading for deeper water. Drawn on a 56 x 36 grid at build
+ * time. Two colours and the page: ink (border, coast, course, rose), fjord
+ * (graduation, contours, soundings), mist (land).
  */
-const W = 48;
-const H = 30;
+const W = 56;
+const H = 36;
+const INSET = 3; // the chart proper starts inside the border
 const LEVELS = [0, 0.5, 1.1, 1.8];
 const COURSE: [number, number][] = [
-  [7, 13],
-  [18, 19],
-  [31, 15],
-  [43, 24],
+  [10, 16],
+  [21, 22],
+  [34, 18],
+  [47, 27],
 ];
+const TARGET = COURSE[COURSE.length - 1];
+const ROSE_AT: [number, number] = [45, 5];
+const ROSE = ["...#...", "...#...", "...#...", "..#.#..", "###.###", "..#.#..", "...#...", "...#..."];
+/** The dashes march one cell per frame; four frames make a full dash period. */
+const DASH_FRAMES = 4;
 const NEIGHBOURS: [number, number][] = [
   [1, 0],
   [-1, 0],
@@ -22,11 +31,11 @@ const NEIGHBOURS: [number, number][] = [
   [0, -1],
 ];
 
-type Cell = "coast" | "mark" | "halo" | "course";
+type Cell = "coast" | "mark" | "land" | "halo" | "course" | "ping";
 
 /** Distance out from the coast, which curves around the top-left corner. */
 function depth(x: number, y: number) {
-  return Math.hypot((x + 0.5) / 17, (y + 0.5) / 10) - 1;
+  return Math.hypot((x - INSET + 0.5) / 17, (y - INSET + 0.5) / 10) - 1;
 }
 
 function band(x: number, y: number) {
@@ -34,14 +43,14 @@ function band(x: number, y: number) {
   return LEVELS.filter((level) => d >= level).length;
 }
 
-function inside(x: number, y: number) {
-  return x >= 0 && y >= 0 && x < W && y < H;
+/** Inside the neat line. */
+function inChart(x: number, y: number) {
+  return x >= INSET && y >= INSET && x < W - INSET && y < H - INSET;
 }
 
-/** Bresenham line between waypoints, keeping two cells in every four. */
-function dashedCourse(): [number, number][] {
+/** Every cell of the course, waypoint to waypoint (Bresenham). */
+function courseCells(): [number, number][] {
   const cells: [number, number][] = [];
-  let step = 0;
   for (let i = 0; i < COURSE.length - 1; i += 1) {
     let [x0, y0] = COURSE[i];
     const [x1, y1] = COURSE[i + 1];
@@ -51,8 +60,9 @@ function dashedCourse(): [number, number][] {
     const sy = y0 < y1 ? 1 : -1;
     let err = dx + dy;
     for (;;) {
-      if (step % 4 < 2) cells.push([x0, y0]);
-      step += 1;
+      if (cells.length === 0 || x0 !== cells[cells.length - 1][0] || y0 !== cells[cells.length - 1][1]) {
+        cells.push([x0, y0]);
+      }
       if (x0 === x1 && y0 === y1) break;
       const e2 = 2 * err;
       if (e2 >= dy) {
@@ -80,80 +90,110 @@ function waypoint(cx: number, cy: number, r: number, style: "filled" | "hollow" 
   return cells;
 }
 
-function draw(): Record<Cell, string> {
-  const cells = new Map<string, Cell>();
-  const key = (x: number, y: number) => `${x},${y}`;
-
-  // Coastline (ink) and contours (fjord): the outer edge of each depth band
-  for (let y = 0; y < H; y += 1) {
-    for (let x = 0; x < W; x += 1) {
-      const b = band(x, y);
-      const onEdge = NEIGHBOURS.some(([dx, dy]) => inside(x + dx, y + dy) && band(x + dx, y + dy) < b);
-      if (onEdge) cells.set(key(x, y), b === 1 ? "coast" : "mark");
-    }
-  }
-
-  // Spot soundings on a loose grid
-  for (let y = 3; y < H; y += 5) {
-    for (let x = y % 2 ? 4 : 1; x < W; x += 7) {
-      if (depth(x, y) > 0.2 && !cells.has(key(x, y))) cells.set(key(x, y), "mark");
-    }
-  }
-
-  const [start, turnA, turnB, end] = COURSE;
-  const course = [
-    ...dashedCourse(),
-    ...waypoint(start[0], start[1], 1, "filled"),
-    ...waypoint(turnA[0], turnA[1], 1, "hollow"),
-    ...waypoint(turnB[0], turnB[1], 1, "hollow"),
-    ...waypoint(end[0], end[1], 2, "target"),
-  ].filter(([x, y]) => inside(x, y));
-
-  // The course and a one-cell halo in the page colour sit on a layer of
-  // their own, so they can be revealed together over the intact chart
-  const layer = new Map<string, Cell>();
-  for (const [x, y] of course) {
-    for (let dy = -1; dy <= 1; dy += 1) {
-      for (let dx = -1; dx <= 1; dx += 1) {
-        if (inside(x + dx, y + dy)) layer.set(key(x + dx, y + dy), "halo");
-      }
-    }
-  }
-  for (const [x, y] of course) layer.set(key(x, y), "course");
-
-  const paths: Record<Cell, string> = { coast: "", mark: "", halo: "", course: "" };
-  for (const [position, cell] of [...cells, ...layer]) {
+function toPaths(cells: Map<string, Cell>) {
+  const paths: Partial<Record<Cell, string>> = {};
+  for (const [position, cell] of cells) {
     const [x, y] = position.split(",").map(Number);
-    paths[cell] += `M${x} ${y}h1v1h-1z`;
+    paths[cell] = `${paths[cell] ?? ""}M${x} ${y}h1v1h-1z`;
   }
   return paths;
 }
 
+function draw() {
+  const chart = new Map<string, Cell>();
+  const key = (x: number, y: number) => `${x},${y}`;
+
+  // Neat line: an ink frame, then a graduated band of alternating fjord
+  // segments, then a fjord inner line
+  for (let y = 0; y < H; y += 1) {
+    for (let x = 0; x < W; x += 1) {
+      const ring = Math.min(x, y, W - 1 - x, H - 1 - y);
+      const along = x === 1 || x === W - 2 ? y : x;
+      if (ring === 0) chart.set(key(x, y), "coast");
+      else if (ring === 1 && Math.floor((along - 2) / 4) % 2 === 0) chart.set(key(x, y), "mark");
+      else if (ring === 2) chart.set(key(x, y), "mark");
+    }
+  }
+
+  // Land (shaded), coastline (ink) and contours (fjord): the outer edge of each depth band
+  for (let y = INSET; y < H - INSET; y += 1) {
+    for (let x = INSET; x < W - INSET; x += 1) {
+      const b = band(x, y);
+      const onEdge = NEIGHBOURS.some(([dx, dy]) => inChart(x + dx, y + dy) && band(x + dx, y + dy) < b);
+      if (onEdge) chart.set(key(x, y), b === 1 ? "coast" : "mark");
+      else if (b === 0) chart.set(key(x, y), "land");
+    }
+  }
+
+  // Spot soundings on a loose grid
+  for (let y = INSET + 3; y < H - INSET; y += 5) {
+    for (let x = y % 2 ? INSET + 4 : INSET + 1; x < W - INSET; x += 7) {
+      if (depth(x, y) > 0.2 && !chart.has(key(x, y))) chart.set(key(x, y), "mark");
+    }
+  }
+
+  // Course, waypoints and rose sit on a one-cell halo in the page colour,
+  // so they read cleanly over the contours
+  const course = courseCells();
+  const [start, turnA, turnB] = COURSE;
+  const fixed = [
+    ...waypoint(start[0], start[1], 1, "filled"),
+    ...waypoint(turnA[0], turnA[1], 1, "hollow"),
+    ...waypoint(turnB[0], turnB[1], 1, "hollow"),
+    ...waypoint(TARGET[0], TARGET[1], 2, "target"),
+  ];
+  ROSE.forEach((row, dy) => {
+    [...row].forEach((ch, dx) => {
+      if (ch === "#") fixed.push([ROSE_AT[0] + dx, ROSE_AT[1] + dy]);
+    });
+  });
+  for (const [x, y] of [...course, ...fixed]) {
+    for (let dy = -1; dy <= 1; dy += 1) {
+      for (let dx = -1; dx <= 1; dx += 1) {
+        if (inChart(x + dx, y + dy)) chart.set(key(x + dx, y + dy), "halo");
+      }
+    }
+  }
+  for (const [x, y] of fixed) chart.set(key(x, y), "course");
+
+  // The dashes, once per frame, each frame one cell further along. They stop
+  // a cell short of every waypoint, so the marks stay clean.
+  const clear = ([x, y]: [number, number]) =>
+    COURSE.every(([cx, cy], i) => Math.max(Math.abs(x - cx), Math.abs(y - cy)) > (i === COURSE.length - 1 ? 3 : 2));
+  const dashes = Array.from({ length: DASH_FRAMES }, (_, frame) => {
+    const cells = new Map<string, Cell>();
+    course.forEach(([x, y], step) => {
+      if ((step - frame + DASH_FRAMES) % DASH_FRAMES < 2 && clear([x, y])) cells.set(key(x, y), "course");
+    });
+    return toPaths(cells).course ?? "";
+  });
+
+  // A ring that pings around the target
+  const ping = new Map<string, Cell>();
+  for (const [x, y] of waypoint(TARGET[0], TARGET[1], 4, "hollow")) {
+    if (inChart(x, y)) ping.set(key(x, y), "ping");
+  }
+
+  return { chart: toPaths(chart), dashes, ping: toPaths(ping).ping ?? "" };
+}
+
 const PATHS = draw();
 
-/**
- * The chart and the course are two stacked SVGs: the course layer is
- * revealed with a clip on its own box, which browsers handle reliably
- * (clip shapes on SVG child elements are not).
- */
 export function SeaChart({ label, className }: { label: string; className?: string }) {
-  const viewBox = `0 0 ${W} ${H}`;
+  const { chart, dashes, ping } = PATHS;
   return (
-    <span role="img" aria-label={label} className={[styles.art, className].filter(Boolean).join(" ")}>
-      <svg viewBox={viewBox} className={styles.layer} shapeRendering="crispEdges" aria-hidden="true" focusable="false">
-        <path d={PATHS.mark} className={styles.mark} />
-        <path d={PATHS.coast} className={styles.ink} />
+    <AmbientLoop className={[styles.art, className].filter(Boolean).join(" ")}>
+      <svg viewBox={`0 0 ${W} ${H}`} className={styles.svg} shapeRendering="crispEdges" role="img" aria-label={label} focusable="false">
+        <path d={chart.land} className={styles.land} />
+        <path d={chart.mark} className={styles.mark} />
+        <path d={chart.halo} className={styles.halo} />
+        <path d={chart.coast} className={styles.ink} />
+        <path d={chart.course} className={styles.ink} />
+        {dashes.map((d, i) => (
+          <path key={i} d={d} className={[styles.ink, styles.dash, i > 0 && styles.dashLater].filter(Boolean).join(" ")} style={{ animationDelay: `calc(var(--duration-loop) / -16 * ${(DASH_FRAMES - i) % DASH_FRAMES})` }} />
+        ))}
+        <path d={ping} className={`${styles.ink} ${styles.ping}`} />
       </svg>
-      <svg
-        viewBox={viewBox}
-        className={`${styles.layer} ${styles.reveal}`}
-        shapeRendering="crispEdges"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <path d={PATHS.halo} className={styles.halo} />
-        <path d={PATHS.course} className={styles.ink} />
-      </svg>
-    </span>
+    </AmbientLoop>
   );
 }

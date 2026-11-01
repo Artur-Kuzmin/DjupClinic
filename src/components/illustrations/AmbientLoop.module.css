@@ -1,0 +1,8 @@
+.loop {
+  position: relative;
+  display: block;
+}
+
+.loop[data-paused] * {
+  animation-play-state: paused;
+}

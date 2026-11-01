@@ -1,0 +1,120 @@
+/* 128 x 96 cells, always at a whole number of px per cell:
+   2px on phones, 3px from tablet, 4px from wide desktop */
+.art {
+  --scene-cell: 2px;
+  width: calc(128 * var(--scene-cell));
+  height: calc(96 * var(--scene-cell));
+}
+
+@media (min-width: 48rem) {
+  .art {
+    --scene-cell: 3px;
+  }
+}
+
+@media (min-width: 80rem) {
+  .art {
+    --scene-cell: 4px;
+  }
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Site palette only; coral appears once, on the weight */
+.bone { fill: var(--bone-0); }
+.mist { fill: var(--mist); }
+.fjord { fill: var(--fjord-500); }
+.deep { fill: var(--fjord-700); }
+.ink { fill: var(--ink); }
+.coral { fill: var(--coral-500); }
+.page { fill: var(--color-bg); }
+
+/* ---- Ambient loop ------------------------------------------------------
+   One 12s cycle (--duration-loop), every move a whole cell. Waves shift
+   and the boat bobs on a quarter-cycle beat, the line sways with the boat, particles rise one
+   period per cycle, and the school takes three cycles to cross and wrap.
+   The un-animated state of every layer is the finished frame. */
+
+.waves {
+  animation: waves var(--duration-loop) step-end infinite;
+}
+
+@keyframes waves {
+  25% { transform: translateX(-1px); }
+  50% { transform: translateX(-2px); }
+  75% { transform: translateX(-1px); }
+}
+
+.boat {
+  animation: bob var(--duration-loop) step-end -1.5s infinite;
+}
+
+@keyframes bob {
+  25% { transform: translateY(1px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(1px); }
+}
+
+/* Three drawings of the line: straight, bowed west, bowed east */
+.line0,
+.line1,
+.line2 {
+  animation: var(--duration-loop) step-end -1.5s infinite;
+}
+
+.line1,
+.line2 {
+  opacity: 0;
+}
+
+.line0 { animation-name: line-straight; }
+.line1 { animation-name: line-west; }
+.line2 { animation-name: line-east; }
+
+@keyframes line-straight {
+  25% { opacity: 0; }
+  50% { opacity: 1; }
+  75% { opacity: 0; }
+}
+
+@keyframes line-west {
+  25% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes line-east {
+  75% { opacity: 1; }
+}
+
+.motes {
+  animation: rise var(--duration-loop) steps(24, end) infinite;
+}
+
+@keyframes rise {
+  to { transform: translateY(-24px); }
+}
+
+.school {
+  animation: drift calc(3 * var(--duration-loop)) steps(128, end) infinite;
+}
+
+@keyframes drift {
+  to { transform: translateX(128px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waves,
+  .boat,
+  .line0,
+  .line1,
+  .line2,
+  .motes,
+  .school {
+    animation: none;
+  }
+}

@@ -1,14 +1,16 @@
+import { AmbientLoop } from "./AmbientLoop";
 import styles from "./AnswerCard.module.css";
 
 /**
- * School Audits illustration: an AI answer card. One line is struck
- * through; the corrected line beneath it is underlined in coral, the one
- * key highlight. Drawn on a 44 x 32 grid at build time.
+ * School Audits illustration: an AI answer card. A sparkle marks the
+ * assistant; one line of the answer is struck through, the corrected line
+ * beneath it is underlined in coral (the one key highlight), and two source
+ * chips sit at the foot. Drawn on a 44 x 38 grid at build time.
  */
 const W = 44;
-const H = 32;
+const H = 38;
 
-type Cell = "ink" | "mark" | "strike" | "accent";
+type Cell = "ink" | "mark" | "strike" | "correction" | "accent" | "cursor";
 
 function draw(): Record<Cell, string> {
   const cells = new Map<string, Cell>();
@@ -17,38 +19,51 @@ function draw(): Record<Cell, string> {
     for (let y = y0; y <= y1; y += 1) for (let x = x0; x <= x1; x += 1) set(x, y, cell);
   };
 
-  // Card frame
+  // Card frame, open at the bottom left for the speech tail
+  const base = H - 5;
   rect(0, 0, W - 1, 0, "ink");
-  rect(0, 0, 0, 27, "ink");
-  rect(W - 1, 0, W - 1, 27, "ink");
-  rect(0, 27, 4, 27, "ink");
-  rect(8, 27, W - 1, 27, "ink");
+  rect(0, 0, 0, base, "ink");
+  rect(W - 1, 0, W - 1, base, "ink");
+  rect(0, base, 4, base, "ink");
+  rect(8, base, W - 1, base, "ink");
   // Speech tail, drawn as an outline below the gap in the frame
-  for (const y of [28, 29, 30, 31]) set(4, y, "ink");
-  set(7, 28, "ink");
-  set(6, 29, "ink");
-  set(5, 30, "ink");
+  for (let y = base + 1; y < H; y += 1) set(4, y, "ink");
+  set(7, base + 1, "ink");
+  set(6, base + 2, "ink");
+  set(5, base + 3, "ink");
 
-  // Header: avatar and a short label bar
-  rect(3, 3, 5, 5, "mark");
-  rect(8, 4, 17, 4, "ink");
+  // Header: a four-point sparkle for the assistant, and a short label bar
+  ["...#...", "...#...", "..###..", "#######", "..###..", "...#...", "...#..."].forEach((row, dy) => {
+    [...row].forEach((ch, dx) => ch === "#" && set(2 + dx, 2 + dy, "mark"));
+  });
+  rect(12, 5, 21, 5, "ink");
 
   // Answer text
-  rect(3, 9, 37, 10, "mark");
-  rect(3, 13, 31, 14, "mark");
+  rect(3, 11, 37, 12, "mark");
+  rect(3, 15, 31, 16, "mark");
 
   // The wrong line: faded, with an ink strike running past both ends
   for (let x = 3; x <= 34; x += 1) {
-    if (x % 2 === 0) set(x, 17, "mark");
-    if (x % 2 === 1) set(x, 19, "mark");
+    if (x % 2 === 0) set(x, 19, "mark");
+    if (x % 2 === 1) set(x, 21, "mark");
   }
-  rect(2, 18, 35, 18, "strike");
+  rect(2, 20, 35, 20, "strike");
 
-  // The correction, underlined
-  rect(3, 22, 26, 23, "mark");
-  rect(3, 25, 26, 25, "accent");
+  // The correction, underlined, and the cursor after it
+  rect(3, 24, 26, 25, "correction");
+  rect(3, 27, 26, 27, "accent");
+  rect(28, 23, 28, 26, "cursor");
 
-  const paths: Record<Cell, string> = { ink: "", mark: "", strike: "", accent: "" };
+  // Two source chips
+  for (const x0 of [3, 15]) {
+    rect(x0, 29, x0 + 9, 29, "ink");
+    rect(x0, 31, x0 + 9, 31, "ink");
+    rect(x0, 30, x0, 30, "ink");
+    rect(x0 + 9, 30, x0 + 9, 30, "ink");
+    rect(x0 + 2, 30, x0 + 6, 30, "mark");
+  }
+
+  const paths: Record<Cell, string> = { ink: "", mark: "", strike: "", correction: "", accent: "", cursor: "" };
   for (const [position, cell] of cells) {
     const [x, y] = position.split(",").map(Number);
     paths[cell] += `M${x} ${y}h1v1h-1z`;
@@ -59,8 +74,9 @@ function draw(): Record<Cell, string> {
 const PATHS = draw();
 
 /**
- * The card, the strike and the correction are stacked SVGs, so the two
- * marks can each be revealed with a clip on their own box.
+ * The card and each mark are stacked SVGs, so every mark can be revealed
+ * with a clip on its own box (clip shapes on SVG child elements are not
+ * handled reliably).
  */
 export function AnswerCard({ label, className }: { label: string; className?: string }) {
   const viewBox = `0 0 ${W} ${H}`;
@@ -76,15 +92,17 @@ export function AnswerCard({ label, className }: { label: string; className?: st
     </svg>
   );
   return (
-    <span role="img" aria-label={label} className={[styles.art, className].filter(Boolean).join(" ")}>
+    <AmbientLoop role="img" aria-label={label} className={[styles.art, className].filter(Boolean).join(" ")}>
       {layer(
         <>
           <path d={PATHS.mark} className={styles.mark} />
           <path d={PATHS.ink} className={styles.ink} />
+          <path d={PATHS.cursor} className={`${styles.ink} ${styles.cursor}`} />
         </>,
       )}
       {layer(<path d={PATHS.strike} className={styles.ink} />, styles.strike)}
+      {layer(<path d={PATHS.correction} className={styles.mark} />, styles.correction)}
       {layer(<path d={PATHS.accent} className={styles.accent} />, styles.underline)}
-    </span>
+    </AmbientLoop>
   );
 }

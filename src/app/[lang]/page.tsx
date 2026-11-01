@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/CtaBand";
 import { Dither } from "@/components/Dither";
 import { PracticePanel } from "@/components/home/PracticePanel";
-import { SoundingLine } from "@/components/illustrations/SoundingLine";
+import { SoundingScene } from "@/components/illustrations/SoundingScene";
 import { Section } from "@/components/Section";
 import { SectionLabel } from "@/components/SectionLabel";
 import { isLocale, pathFor } from "@/i18n/config";
@@ -26,38 +26,38 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      <Section depth={0} padded={false} className={styles.hero}>
-        <div className={`container grid ${styles.heroGrid}`}>
+      {/* Statement, scene and the two practice doors share one grid, so the
+          single scene can sit beside the statement on desktop, under it on
+          tablet, and after the doors on phones */}
+      <Section depth={0} padded={false} className={styles.opening}>
+        <div className={`container grid ${styles.openingGrid}`}>
           <h1 className={styles.statement}>{t.statement}</h1>
-          <SoundingLine label={t.illustrationAlt} className={styles.illustration} />
-        </div>
-      </Section>
-
-      <Section depth={0} padded={false} labelledBy="split-heading" className={styles.split}>
-        <h2 id="split-heading" className="visually-hidden">
-          {t.split.heading}
-        </h2>
-        <div className={`container grid ${styles.splitGrid}`}>
-          <PracticePanel
-            index={1}
-            practice={dict.practices.startups}
-            title={t.split.startups.title}
-            text={t.split.startups.text}
-            items={t.split.startups.items}
-            cta={t.split.startups.cta}
-            href={pathFor(lang, "startups")}
-            className={styles.panelStartups}
-          />
-          <PracticePanel
-            index={2}
-            practice={dict.practices.schools}
-            title={t.split.schools.title}
-            text={t.split.schools.text}
-            items={t.split.schools.items}
-            cta={t.split.schools.cta}
-            href={pathFor(lang, "schools")}
-            className={styles.panelSchools}
-          />
+          <section aria-labelledby="split-heading" className={styles.split}>
+            <h2 id="split-heading" className="visually-hidden">
+              {t.split.heading}
+            </h2>
+            <PracticePanel
+              index={1}
+              practice={dict.practices.startups}
+              title={t.split.startups.title}
+              text={t.split.startups.text}
+              items={t.split.startups.items}
+              cta={t.split.startups.cta}
+              href={pathFor(lang, "startups")}
+              className={styles.panelStartups}
+            />
+            <PracticePanel
+              index={2}
+              practice={dict.practices.schools}
+              title={t.split.schools.title}
+              text={t.split.schools.text}
+              items={t.split.schools.items}
+              cta={t.split.schools.cta}
+              href={pathFor(lang, "schools")}
+              className={styles.panelSchools}
+            />
+          </section>
+          <SoundingScene label={t.illustrationAlt} className={styles.scene} />
         </div>
       </Section>
 

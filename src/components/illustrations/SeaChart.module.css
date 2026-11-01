@@ -1,8 +1,6 @@
 .art {
-  position: relative;
-  display: block;
-  width: calc(48 * var(--illustration-cell));
-  height: calc(30 * var(--illustration-cell));
+  width: calc(56 * var(--illustration-cell));
+  height: calc(36 * var(--illustration-cell));
 }
 
 @media (min-width: 64rem) {
@@ -11,12 +9,14 @@
   }
 }
 
-/* Stacked SVG layers; the course layer is clipped on its own box */
-.layer {
-  position: absolute;
-  inset: 0;
+.svg {
+  display: block;
   width: 100%;
   height: 100%;
+}
+
+.land {
+  fill: var(--mist);
 }
 
 .mark {
@@ -31,16 +31,39 @@
   fill: var(--color-bg);
 }
 
-/* The course plots itself across the chart once, a few cells per step */
-.reveal {
-  animation: plot var(--duration-draw) var(--ease-pixel-drop) 0.2s both;
+/* ---- Ambient loop ------------------------------------------------------
+   The course dashes march toward the target one cell every 0.75s (four
+   frames, a 3s period), and the target pings twice near the end of each
+   12s cycle. The un-animated state is the finished chart. */
+
+.dash {
+  animation: dash calc(var(--duration-loop) / 4) step-end infinite;
 }
 
-@keyframes plot {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
+.dashLater {
+  opacity: 0;
+}
+
+@keyframes dash {
+  0% { opacity: 1; }
+  25% { opacity: 0; }
+}
+
+.ping {
+  opacity: 0;
+  animation: ping var(--duration-loop) step-end infinite;
+}
+
+@keyframes ping {
+  80% { opacity: 1; }
+  84% { opacity: 0; }
+  88% { opacity: 1; }
+  92% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash,
+  .ping {
+    animation: none;
   }
 }
