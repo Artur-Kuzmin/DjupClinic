@@ -85,4 +85,5 @@ Type: Geist for headings and body; Departure Mono only for labels, section numbe
 3. Check at 375, 768 and 1440px in both English and French, plus reduced motion where something animates.
 4. Critique against this brief, fix, then show the result.
 5. `npx tsc --noEmit`, `npm run lint` and `npm run build` pass; Lighthouse 95+ on every category in both languages.
+   Mobile Lighthouse performance must stay at 95+ on every page. Illustrations use the shared pixel-grid.ts helpers and tiled textures; check page weight before and after any visual change.
 6. Commit, then push to `origin` (GitHub `Artur-Kuzmin/DjupClinic`) after every commit.
