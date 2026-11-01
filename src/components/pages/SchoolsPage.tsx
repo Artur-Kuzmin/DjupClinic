@@ -48,6 +48,7 @@ export function SchoolsPage({ lang, slug }: { lang: string; slug: string }) {
           </ButtonLink>
         }
         illustration={<AnswerCard label={t.hero.illustrationAlt} />}
+        wideIllustration
       />
 
       <Section depth={0} labelledBy="problem-heading" className={styles.problem}>

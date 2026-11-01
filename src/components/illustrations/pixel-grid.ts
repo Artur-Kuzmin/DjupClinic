@@ -27,6 +27,10 @@ export class Layer<C extends string> {
     return this.cells.has(`${x},${y}`);
   }
 
+  get(x: number, y: number): C | undefined {
+    return this.cells.get(`${x},${y}`);
+  }
+
   /** Every cell, as [x, y, colour]. */
   *entries(): Generator<[number, number, C]> {
     for (const [position, colour] of this.cells) {

@@ -246,7 +246,7 @@ const fr: Dictionary = {
       title: "Vos futurs étudiants interrogent l'IA avant de visiter votre site.",
       lead: "Nous mesurons ce que disent de votre école les principaux assistants IA utilisés par les étudiants (ChatGPT, Perplexity, Gemini, les AI Overviews de Google et d'autres). Puis nous le confrontons à vos informations officielles et vous remettons un plan pour corriger ce qui est faux.",
       cta: "Demander votre diagnostic gratuit",
-      illustrationAlt: "Dessin en pixels d'une réponse d'IA : une ligne barrée, et sa correction soulignée.",
+      illustrationAlt: "Dessin en pixels de la fenêtre d'un assistant IA : une question, une réponse de plusieurs lignes et ses sources. Un relecteur a barré une ligne de la réponse et l'a reliée par un trait à une note de correction, entourée de corail, dans la marge.",
     },
     problem: {
       label: "Le constat",

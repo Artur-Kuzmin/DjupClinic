@@ -244,7 +244,7 @@ const en = {
       title: "Students ask AI about your school before they visit your website.",
       lead: "We measure what the main AI assistants students use (ChatGPT, Perplexity, Gemini, Google AI Overviews and others) say about your school. Then we check it against your official information and give you a plan to correct what's wrong.",
       cta: "Request your free snapshot",
-      illustrationAlt: "Pixel drawing of an AI answer: one line struck through, and its correction underlined.",
+      illustrationAlt: "Pixel drawing of an AI assistant's chat window: a question, a multi-line answer and its sources. A reviewer has struck one line of the answer through and drawn a line from it to a correction note, ringed in coral, in the margin.",
     },
     problem: {
       label: "The problem",
